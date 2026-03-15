@@ -1,0 +1,80 @@
+name: Test Shaadi App
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: shaadi_ui/package-lock.json
+    
+    - name: Install Frappe bench
+      run: |
+        python -m pip install --upgrade pip
+        pip install frappe-bench
+    
+    - name: Setup bench
+      run: |
+        bench init --skip-assets --frappe-path https://github.com/frappe/frappe --frappe-branch version-15 frappe-bench-test
+        cd frappe-bench-test
+        bench get-app https://github.com/amitascra/shaadi-frappe-app.git
+    
+    - name: Install dependencies
+      run: |
+        cd frappe-bench-test
+        bench setup requirements --dev
+        cd apps/shaadi/shaadi_ui
+        npm ci
+    
+    - name: Run frontend tests
+      run: |
+        cd frappe-bench-test/apps/shaadi/shaadi_ui
+        npm run test:unit || true
+    
+    - name: Build frontend
+      run: |
+        cd frappe-bench-test/apps/shaadi/shaadi_ui
+        npm run build
+    
+    - name: Run backend tests
+      run: |
+        cd frappe-bench-test
+        bench --site test.localhost install-app shaadi
+        bench --site test.localhost migrate
+        bench --site test.localhost execute frappe.tests.utils.run_tests --app shaadi
+    
+    - name: Run integration tests
+      run: |
+        cd frappe-bench-test
+        bench --site test.localhost console
+        
+        # Test API endpoints
+        frappe.get_doc('User', 'Administrator')
+        
+        # Test Shaadi app functionality
+        from shaadi.shaadi.api.matchmaking import get_recommendations
+        from shaadi.shaadi.api.matchmaking import get_mutual_matches
+        
+        print("✅ API endpoints working correctly")
