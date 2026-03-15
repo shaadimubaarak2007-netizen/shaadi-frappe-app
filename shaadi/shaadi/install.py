@@ -6,9 +6,15 @@ def after_install():
 	"""Run after app installation"""
 	create_custom_roles()
 	create_default_role_profiles()
-	create_default_subscription_plans()
 	configure_doctype_permissions()
 	setup_existing_user_roles()
+	# Note: Subscription plans will be created in after_migrate hook
+	frappe.db.commit()
+
+
+def after_migrate():
+	"""Run after migration - when DocTypes are fully synced"""
+	create_default_subscription_plans()
 	frappe.db.commit()
 
 
@@ -232,6 +238,7 @@ def set_doctype_permissions(doctype, permissions):
 
 def create_default_subscription_plans():
 	"""Create default subscription plans"""
+	# This function is called in after_migrate hook, so DocTypes should exist
 	plans = [
 		{
 			"plan_name": "Free",
