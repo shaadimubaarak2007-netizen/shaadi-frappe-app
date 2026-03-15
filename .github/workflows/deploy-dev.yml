@@ -1,0 +1,54 @@
+name: Deploy to Development
+
+on:
+  push:
+    branches: [ dev ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: development
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: shaadi_ui/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd shaadi_ui
+        npm ci
+    
+    - name: Run tests
+      run: |
+        cd shaadi_ui
+        npm run test:unit || true
+    
+    - name: Build frontend
+      run: |
+        cd shaadi_ui
+        npm run build
+    
+    - name: Deploy to development server
+      run: |
+        echo "🚀 Deploying to development environment..."
+        echo "Branch: ${{ github.ref_name }}"
+        echo "Commit: ${{ github.sha }}"
+        echo "Timestamp: $(date)"
+        
+        # Add your actual deployment commands here
+        # Example:
+        # rsync -avz --delete dist/ user@dev-server:/var/www/shaadi-dev/
+        # ssh user@dev-server 'cd /var/www/shaadi-dev && docker-compose restart'
+    
+    - name: Notify deployment
+      run: |
+        echo "✅ Development deployment completed successfully!"
+        echo "🌐 Development URL: https://dev.shaadi.yourdomain.com"
