@@ -1,0 +1,11 @@
+@import "./assets/Inter/inter.css";
+@import "../node_modules/frappe-ui/src/style.css";
+
+/* Fix Dialog transparency issue */
+.bg-surface-modal {
+  background-color: white !important;
+}
+
+.dialog-content {
+  background-color: white !important;
+}

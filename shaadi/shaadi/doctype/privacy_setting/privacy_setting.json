@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:PRIV-{member_profile}",
+ "creation": "2026-03-15 13:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "member_profile",
+  "photo_privacy_section",
+  "hide_photo_until_interest",
+  "hide_contact_until_accepted",
+  "column_break_1",
+  "hide_last_seen",
+  "profile_visible_to",
+  "blocked_members_section",
+  "block_list"
+ ],
+ "fields": [
+  {
+   "fieldname": "member_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member Profile",
+   "options": "Member Profile",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "photo_privacy_section",
+   "fieldtype": "Section Break",
+   "label": "Privacy Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "hide_photo_until_interest",
+   "fieldtype": "Check",
+   "label": "Hide Photo Until Interest"
+  },
+  {
+   "default": "1",
+   "fieldname": "hide_contact_until_accepted",
+   "fieldtype": "Check",
+   "label": "Hide Contact Until Accepted"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "hide_last_seen",
+   "fieldtype": "Check",
+   "label": "Hide Last Seen"
+  },
+  {
+   "default": "Everyone",
+   "fieldname": "profile_visible_to",
+   "fieldtype": "Select",
+   "label": "Profile Visible To",
+   "options": "Everyone\nPaid Members\nAccepted Matches Only"
+  },
+  {
+   "fieldname": "blocked_members_section",
+   "fieldtype": "Section Break",
+   "label": "Blocked Members"
+  },
+  {
+   "fieldname": "block_list",
+   "fieldtype": "Table",
+   "label": "Blocked Members",
+   "options": "Privacy Blocked Member"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 13:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Privacy Setting",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

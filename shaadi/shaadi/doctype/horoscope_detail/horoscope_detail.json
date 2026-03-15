@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:HORO-{member_profile}",
+ "creation": "2026-03-15 13:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "member_profile",
+  "birth_time",
+  "birth_place",
+  "column_break_1",
+  "rashi",
+  "nakshatra",
+  "pada",
+  "horoscope_details_section",
+  "gotra",
+  "manglik",
+  "column_break_2",
+  "kundali_match_required",
+  "kundali_pdf",
+  "notes_section",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "member_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member Profile",
+   "options": "Member Profile",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "birth_time",
+   "fieldtype": "Time",
+   "label": "Birth Time"
+  },
+  {
+   "fieldname": "birth_place",
+   "fieldtype": "Data",
+   "label": "Birth Place"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rashi",
+   "fieldtype": "Select",
+   "label": "Rashi",
+   "options": "Mesh (Aries)\nVrishabh (Taurus)\nMithun (Gemini)\nKark (Cancer)\nSingh (Leo)\nKanya (Virgo)\nTula (Libra)\nVrishchik (Scorpio)\nDhanu (Sagittarius)\nMakar (Capricorn)\nKumbh (Aquarius)\nMeen (Pisces)"
+  },
+  {
+   "fieldname": "nakshatra",
+   "fieldtype": "Select",
+   "label": "Nakshatra",
+   "options": "Ashwini\nBharani\nKrittika\nRohini\nMrigashira\nArdra\nPunarvasu\nPushya\nAshlesha\nMagha\nPurva Phalguni\nUttara Phalguni\nHasta\nChitra\nSwati\nVishakha\nAnuradha\nJyeshtha\nMula\nPurva Ashadha\nUttara Ashadha\nShravana\nDhanishta\nShatabhisha\nPurva Bhadrapada\nUttara Bhadrapada\nRevati"
+  },
+  {
+   "fieldname": "pada",
+   "fieldtype": "Select",
+   "label": "Pada",
+   "options": "1\n2\n3\n4"
+  },
+  {
+   "fieldname": "horoscope_details_section",
+   "fieldtype": "Section Break",
+   "label": "Horoscope Details"
+  },
+  {
+   "fieldname": "gotra",
+   "fieldtype": "Data",
+   "label": "Gotra"
+  },
+  {
+   "fieldname": "manglik",
+   "fieldtype": "Select",
+   "label": "Manglik",
+   "options": "Yes\nNo\nPartial"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "kundali_match_required",
+   "fieldtype": "Check",
+   "label": "Kundali Match Required"
+  },
+  {
+   "fieldname": "kundali_pdf",
+   "fieldtype": "Attach",
+   "label": "Kundali PDF"
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Astrologer Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 13:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Horoscope Detail",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

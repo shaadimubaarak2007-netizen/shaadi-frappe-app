@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:RA-{reporter}-{reported_profile}-{#####}",
+ "creation": "2026-03-15 16:30:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "reporter",
+  "reported_profile",
+  "column_break_1",
+  "reason",
+  "status",
+  "details_section",
+  "description",
+  "moderation_section",
+  "reviewed_by",
+  "reviewed_on",
+  "column_break_2",
+  "action_taken"
+ ],
+ "fields": [
+  {
+   "fieldname": "reporter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Reporter",
+   "options": "Member Profile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reported_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Reported Profile",
+   "options": "Member Profile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Reason",
+   "options": "Fake Profile\nHarassment\nInappropriate Content\nScam/Fraud\nOther",
+   "reqd": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Pending\nUnder Review\nActioned\nDismissed"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "moderation_section",
+   "fieldtype": "Section Break",
+   "label": "Moderation"
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User"
+  },
+  {
+   "fieldname": "reviewed_on",
+   "fieldtype": "Datetime",
+   "label": "Reviewed On"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "action_taken",
+   "fieldtype": "Text",
+   "label": "Action Taken"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 16:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Report Abuse",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Matrimonial Member"
+  },
+  {
+   "read": 1,
+   "role": "Matrimonial Moderator",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,488 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:MEM-{full_name}-{#####}",
+ "creation": "2026-03-15 13:45:00",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "full_name",
+  "dob",
+  "age",
+  "gender",
+  "profile_photo",
+  "column_break_1",
+  "email",
+  "phone",
+  "whatsapp_number",
+  "identity_section",
+  "religion",
+  "caste",
+  "sub_caste",
+  "gotra",
+  "column_break_2",
+  "mother_tongue",
+  "manglik_status",
+  "physical_section",
+  "height_cm",
+  "weight_kg",
+  "complexion",
+  "column_break_3",
+  "blood_group",
+  "physically_challenged",
+  "disability_details",
+  "lifestyle_section",
+  "marital_status",
+  "diet",
+  "column_break_4",
+  "smoking",
+  "drinking",
+  "education_career_section",
+  "education",
+  "education_detail",
+  "occupation",
+  "occupation_detail",
+  "column_break_5",
+  "employer_type",
+  "annual_income_band",
+  "location_section",
+  "city",
+  "state",
+  "country_of_residence",
+  "column_break_6",
+  "nri_country",
+  "about_section",
+  "profile_bio",
+  "created_by_relation",
+  "photos_section",
+  "profile_photos",
+  "status_meta_section",
+  "verified",
+  "verification_date",
+  "verified_by",
+  "column_break_7",
+  "featured",
+  "profile_visibility",
+  "is_active",
+  "column_break_8",
+  "last_active",
+  "last_seen",
+  "subscription_plan",
+  "profile_completeness",
+  "view_count"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "unique": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Full Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "dob",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date of Birth",
+   "reqd": 1
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age (years)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Gender",
+   "options": "Male\nFemale",
+   "reqd": 1
+  },
+  {
+   "fieldname": "profile_photo",
+   "fieldtype": "Attach Image",
+   "label": "Profile Photo"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email",
+   "unique": 1
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "options": "Phone",
+   "unique": 1
+  },
+  {
+   "fieldname": "whatsapp_number",
+   "fieldtype": "Data",
+   "label": "WhatsApp Number",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "identity_section",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
+  {
+   "fieldname": "religion",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Religion",
+   "options": "Hindu\nMuslim\nChristian\nSikh\nJain\nBuddhist\nOther"
+  },
+  {
+   "fieldname": "caste",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Caste"
+  },
+  {
+   "fieldname": "sub_caste",
+   "fieldtype": "Data",
+   "label": "Sub-caste"
+  },
+  {
+   "fieldname": "gotra",
+   "fieldtype": "Data",
+   "label": "Gotra"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mother_tongue",
+   "fieldtype": "Select",
+   "label": "Mother Tongue",
+   "options": "Hindi\nTamil\nTelugu\nKannada\nMalayalam\nMarathi\nBengali\nGujarati\nPunjabi\nOdia\nUrdu\nEnglish\nOther"
+  },
+  {
+   "fieldname": "manglik_status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Manglik Status",
+   "options": "Not Manglik\nManglik\nPartial Manglik\nNot Known"
+  },
+  {
+   "fieldname": "physical_section",
+   "fieldtype": "Section Break",
+   "label": "Physical Attributes"
+  },
+  {
+   "fieldname": "height_cm",
+   "fieldtype": "Int",
+   "label": "Height (cm)"
+  },
+  {
+   "fieldname": "weight_kg",
+   "fieldtype": "Int",
+   "label": "Weight (kg)"
+  },
+  {
+   "fieldname": "complexion",
+   "fieldtype": "Select",
+   "label": "Complexion",
+   "options": "Very Fair\nFair\nWheatish\nDark"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "blood_group",
+   "fieldtype": "Select",
+   "label": "Blood Group",
+   "options": "A+\nA-\nB+\nB-\nO+\nO-\nAB+\nAB-"
+  },
+  {
+   "default": "0",
+   "fieldname": "physically_challenged",
+   "fieldtype": "Check",
+   "label": "Differently Abled"
+  },
+  {
+   "depends_on": "eval:doc.physically_challenged==1",
+   "fieldname": "disability_details",
+   "fieldtype": "Small Text",
+   "label": "Disability Details"
+  },
+  {
+   "fieldname": "lifestyle_section",
+   "fieldtype": "Section Break",
+   "label": "Lifestyle"
+  },
+  {
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Marital Status",
+   "options": "Never Married\nDivorced\nWidowed\nAwaiting Divorce"
+  },
+  {
+   "fieldname": "diet",
+   "fieldtype": "Select",
+   "label": "Diet",
+   "options": "Vegetarian\nNon-Vegetarian\nJain\nVegan\nEggetarian"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smoking",
+   "fieldtype": "Select",
+   "label": "Smoking",
+   "options": "Non Smoker\nOccasional\nSmoker"
+  },
+  {
+   "fieldname": "drinking",
+   "fieldtype": "Select",
+   "label": "Drinking",
+   "options": "Non Drinker\nOccasional\nDrinker"
+  },
+  {
+   "fieldname": "education_career_section",
+   "fieldtype": "Section Break",
+   "label": "Education & Career"
+  },
+  {
+   "fieldname": "education",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Education Level",
+   "options": "Below 10th\n10th Pass\n12th Pass\nDiploma\nGraduation\nPost Graduation\nDoctorate"
+  },
+  {
+   "fieldname": "education_detail",
+   "fieldtype": "Data",
+   "label": "Education Details"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Occupation",
+   "options": "Business/Self Employed\nGovernment Job\nPrivate Job\nDefense\nNRI\nNot Working"
+  },
+  {
+   "fieldname": "occupation_detail",
+   "fieldtype": "Data",
+   "label": "Occupation Details"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employer_type",
+   "fieldtype": "Select",
+   "label": "Employer Type",
+   "options": "Private\nGovernment\nPublic Sector\nSelf Employed\nNot Applicable"
+  },
+  {
+   "fieldname": "annual_income_band",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Annual Income",
+   "options": "No Income\nBelow 2 Lakh\n2-5 Lakh\n5-10 Lakh\n10-20 Lakh\n20-50 Lakh\nAbove 50 Lakh"
+  },
+  {
+   "fieldname": "location_section",
+   "fieldtype": "Section Break",
+   "label": "Location"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "City"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "State",
+   "options": "Andhra Pradesh\nArunachal Pradesh\nAssam\nBihar\nChhattisgarh\nGoa\nGujarat\nHaryana\nHimachal Pradesh\nJharkhand\nKarnataka\nKerala\nMadhya Pradesh\nMaharashtra\nManipur\nMeghalaya\nMizoram\nNagaland\nOdisha\nPunjab\nRajasthan\nSikkim\nTamil Nadu\nTelangana\nTripura\nUttar Pradesh\nUttarakhand\nWest Bengal\nAndaman and Nicobar Islands\nChandigarh\nDadra and Nagar Haveli and Daman and Diu\nDelhi\nJammu and Kashmir\nLadakh\nLakshadweep\nPuducherry"
+  },
+  {
+   "default": "India",
+   "fieldname": "country_of_residence",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.country_of_residence!='India'",
+   "fieldname": "nri_country",
+   "fieldtype": "Link",
+   "label": "NRI Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "about_section",
+   "fieldtype": "Section Break",
+   "label": "About"
+  },
+  {
+   "fieldname": "profile_bio",
+   "fieldtype": "Long Text",
+   "label": "About Me"
+  },
+  {
+   "fieldname": "created_by_relation",
+   "fieldtype": "Select",
+   "label": "Profile Created By",
+   "options": "Self\nParent\nSibling\nRelative"
+  },
+  {
+   "fieldname": "photos_section",
+   "fieldtype": "Section Break",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "profile_photos",
+   "fieldtype": "Table",
+   "label": "Photos",
+   "options": "Member Profile Photo"
+  },
+  {
+   "fieldname": "status_meta_section",
+   "fieldtype": "Section Break",
+   "label": "Status & Meta"
+  },
+  {
+   "default": "0",
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Profile Verified"
+  },
+  {
+   "fieldname": "verification_date",
+   "fieldtype": "Datetime",
+   "label": "Verification Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "featured",
+   "fieldtype": "Check",
+   "label": "Featured Profile"
+  },
+  {
+   "default": "Public",
+   "fieldname": "profile_visibility",
+   "fieldtype": "Select",
+   "label": "Profile Visibility",
+   "options": "Public\nRegistered Members\nPaid Members Only"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_active",
+   "fieldtype": "Datetime",
+   "label": "Last Active"
+  },
+  {
+   "fieldname": "last_seen",
+   "fieldtype": "Datetime",
+   "label": "Last Seen"
+  },
+  {
+   "default": "Free",
+   "fieldname": "subscription_plan",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Current Plan",
+   "options": "Subscription Plan",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "profile_completeness",
+   "fieldtype": "Percent",
+   "label": "Profile Completeness",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "view_count",
+   "fieldtype": "Int",
+   "label": "Profile Views",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 23:25:46.545178",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Member Profile",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

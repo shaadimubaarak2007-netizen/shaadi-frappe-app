@@ -5,3 +5,6 @@
 tags
 node_modules
 __pycache__
+
+# Shaadi app research files
+shaadi/Shaadi-Research/

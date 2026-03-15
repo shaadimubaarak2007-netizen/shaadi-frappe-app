@@ -1,0 +1,185 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:FAM-{member_profile}",
+ "creation": "2026-03-15 13:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "member_profile",
+  "parents_section",
+  "father_name",
+  "father_status",
+  "father_occupation",
+  "column_break_1",
+  "mother_name",
+  "mother_status",
+  "mother_occupation",
+  "family_info_section",
+  "family_type",
+  "family_status",
+  "family_values",
+  "column_break_2",
+  "native_place",
+  "siblings_section",
+  "brothers_count",
+  "brothers_married",
+  "column_break_3",
+  "sisters_count",
+  "sisters_married",
+  "about_family_section",
+  "about_family"
+ ],
+ "fields": [
+  {
+   "fieldname": "member_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member Profile",
+   "options": "Member Profile",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "parents_section",
+   "fieldtype": "Section Break",
+   "label": "Parents"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father's Name"
+  },
+  {
+   "fieldname": "father_status",
+   "fieldtype": "Select",
+   "label": "Father's Status",
+   "options": "Employed\nBusiness\nRetired\nDeceased\nNot Applicable"
+  },
+  {
+   "fieldname": "father_occupation",
+   "fieldtype": "Data",
+   "label": "Father's Occupation"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mother_name",
+   "fieldtype": "Data",
+   "label": "Mother's Name"
+  },
+  {
+   "fieldname": "mother_status",
+   "fieldtype": "Select",
+   "label": "Mother's Status",
+   "options": "Homemaker\nEmployed\nBusiness\nRetired\nDeceased"
+  },
+  {
+   "fieldname": "mother_occupation",
+   "fieldtype": "Data",
+   "label": "Mother's Occupation"
+  },
+  {
+   "fieldname": "family_info_section",
+   "fieldtype": "Section Break",
+   "label": "Family Information"
+  },
+  {
+   "fieldname": "family_type",
+   "fieldtype": "Select",
+   "label": "Family Type",
+   "options": "Nuclear\nJoint"
+  },
+  {
+   "fieldname": "family_status",
+   "fieldtype": "Select",
+   "label": "Family Status",
+   "options": "Middle Class\nUpper Middle Class\nRich"
+  },
+  {
+   "fieldname": "family_values",
+   "fieldtype": "Select",
+   "label": "Family Values",
+   "options": "Traditional\nModerate\nLiberal"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "native_place",
+   "fieldtype": "Data",
+   "label": "Native Place"
+  },
+  {
+   "fieldname": "siblings_section",
+   "fieldtype": "Section Break",
+   "label": "Siblings"
+  },
+  {
+   "default": "0",
+   "fieldname": "brothers_count",
+   "fieldtype": "Int",
+   "label": "Total Brothers"
+  },
+  {
+   "default": "0",
+   "fieldname": "brothers_married",
+   "fieldtype": "Int",
+   "label": "Brothers Married"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sisters_count",
+   "fieldtype": "Int",
+   "label": "Total Sisters"
+  },
+  {
+   "default": "0",
+   "fieldname": "sisters_married",
+   "fieldtype": "Int",
+   "label": "Sisters Married"
+  },
+  {
+   "fieldname": "about_family_section",
+   "fieldtype": "Section Break",
+   "label": "About Family"
+  },
+  {
+   "fieldname": "about_family",
+   "fieldtype": "Small Text",
+   "label": "About Family"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 13:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Family Detail",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

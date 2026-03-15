@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:STORY-{member_1}-{member_2}",
+ "creation": "2026-03-15 13:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "member_1",
+  "member_2",
+  "column_break_1",
+  "wedding_date",
+  "city",
+  "story_section",
+  "story_text",
+  "couple_photo",
+  "publishing_section",
+  "published",
+  "published_on",
+  "column_break_2",
+  "featured"
+ ],
+ "fields": [
+  {
+   "fieldname": "member_1",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member 1",
+   "options": "Member Profile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "member_2",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member 2",
+   "options": "Member Profile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wedding_date",
+   "fieldtype": "Date",
+   "label": "Wedding Date"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "story_section",
+   "fieldtype": "Section Break",
+   "label": "Their Story"
+  },
+  {
+   "fieldname": "story_text",
+   "fieldtype": "Long Text",
+   "label": "Story Text"
+  },
+  {
+   "fieldname": "couple_photo",
+   "fieldtype": "Attach Image",
+   "label": "Couple Photo"
+  },
+  {
+   "fieldname": "publishing_section",
+   "fieldtype": "Section Break",
+   "label": "Publishing"
+  },
+  {
+   "default": "0",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "Published"
+  },
+  {
+   "fieldname": "published_on",
+   "fieldtype": "Date",
+   "label": "Published On"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "featured",
+   "fieldtype": "Check",
+   "label": "Featured"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 13:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Success Story",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

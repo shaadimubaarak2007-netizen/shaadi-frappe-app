@@ -1,0 +1,259 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:PREF-{member_profile}",
+ "creation": "2026-03-15 13:45:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "member_profile",
+  "preferred_gender",
+  "age_height_section",
+  "min_age",
+  "max_age",
+  "column_break_1",
+  "min_height_cm",
+  "max_height_cm",
+  "marital_religion_section",
+  "marital_status",
+  "religion",
+  "column_break_2",
+  "caste_bar",
+  "caste_preference",
+  "language_section",
+  "mother_tongue",
+  "horoscope_section",
+  "manglik_pref",
+  "kundali_must",
+  "education_income_section",
+  "education_pref",
+  "income_pref",
+  "column_break_3",
+  "occupation_pref",
+  "lifestyle_section",
+  "diet_pref",
+  "column_break_4",
+  "smoking_pref",
+  "drinking_pref",
+  "location_section",
+  "country_pref",
+  "city_preferences",
+  "about_partner_section",
+  "about_partner"
+ ],
+ "fields": [
+  {
+   "fieldname": "member_profile",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Member Profile",
+   "options": "Member Profile",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "preferred_gender",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Preferred Gender",
+   "options": "Male\nFemale\nAny",
+   "reqd": 1,
+   "default": "Male"
+  },
+  {
+   "fieldname": "age_height_section",
+   "fieldtype": "Section Break",
+   "label": "Age & Height"
+  },
+  {
+   "default": "18",
+   "fieldname": "min_age",
+   "fieldtype": "Int",
+   "label": "Min Age"
+  },
+  {
+   "default": "40",
+   "fieldname": "max_age",
+   "fieldtype": "Int",
+   "label": "Max Age"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "min_height_cm",
+   "fieldtype": "Int",
+   "label": "Min Height (cm)"
+  },
+  {
+   "fieldname": "max_height_cm",
+   "fieldtype": "Int",
+   "label": "Max Height (cm)"
+  },
+  {
+   "fieldname": "marital_religion_section",
+   "fieldtype": "Section Break",
+   "label": "Marital Status & Religion"
+  },
+  {
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "label": "Marital Status OK",
+   "options": "Never Married\nDivorced\nWidowed\nAny"
+  },
+  {
+   "fieldname": "religion",
+   "fieldtype": "Small Text",
+   "label": "Religion (comma-separated)"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Any",
+   "fieldname": "caste_bar",
+   "fieldtype": "Select",
+   "label": "Caste Bar",
+   "options": "Same Caste\nSame Religion Any Caste\nAny"
+  },
+  {
+   "fieldname": "caste_preference",
+   "fieldtype": "Small Text",
+   "label": "Preferred Castes (comma-separated)"
+  },
+  {
+   "fieldname": "language_section",
+   "fieldtype": "Section Break",
+   "label": "Language"
+  },
+  {
+   "fieldname": "mother_tongue",
+   "fieldtype": "Small Text",
+   "label": "Mother Tongue (comma-separated)"
+  },
+  {
+   "fieldname": "horoscope_section",
+   "fieldtype": "Section Break",
+   "label": "Horoscope"
+  },
+  {
+   "fieldname": "manglik_pref",
+   "fieldtype": "Select",
+   "label": "Manglik Preference",
+   "options": "Manglik\nNon Manglik\nPartial\nDoesnt Matter"
+  },
+  {
+   "default": "0",
+   "fieldname": "kundali_must",
+   "fieldtype": "Check",
+   "label": "Kundali Match Must"
+  },
+  {
+   "fieldname": "education_income_section",
+   "fieldtype": "Section Break",
+   "label": "Education & Income"
+  },
+  {
+   "fieldname": "education_pref",
+   "fieldtype": "Select",
+   "label": "Min Education",
+   "options": "Below 10th\n10th Pass\n12th Pass\nDiploma\nGraduation\nPost Graduation\nDoctorate"
+  },
+  {
+   "fieldname": "income_pref",
+   "fieldtype": "Select",
+   "label": "Min Annual Income",
+   "options": "No Income\nBelow 2 Lakh\n2-5 Lakh\n5-10 Lakh\n10-20 Lakh\n20-50 Lakh\nAbove 50 Lakh"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "occupation_pref",
+   "fieldtype": "Small Text",
+   "label": "Occupation Type (comma-separated)"
+  },
+  {
+   "fieldname": "lifestyle_section",
+   "fieldtype": "Section Break",
+   "label": "Lifestyle"
+  },
+  {
+   "fieldname": "diet_pref",
+   "fieldtype": "Select",
+   "label": "Diet",
+   "options": "Vegetarian\nAny\nNon-Vegetarian"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "smoking_pref",
+   "fieldtype": "Select",
+   "label": "Smoking",
+   "options": "Non Smoker Only\nOK with Smoking\nDoesnt Matter"
+  },
+  {
+   "fieldname": "drinking_pref",
+   "fieldtype": "Select",
+   "label": "Drinking",
+   "options": "Non Drinker Only\nOK with Drinking\nDoesnt Matter"
+  },
+  {
+   "fieldname": "location_section",
+   "fieldtype": "Section Break",
+   "label": "Location"
+  },
+  {
+   "fieldname": "country_pref",
+   "fieldtype": "Select",
+   "label": "Country",
+   "options": "India\nNRI\nAny"
+  },
+  {
+   "fieldname": "city_preferences",
+   "fieldtype": "Table",
+   "label": "Preferred Cities",
+   "options": "Partner Preference City"
+  },
+  {
+   "fieldname": "about_partner_section",
+   "fieldtype": "Section Break",
+   "label": "About Partner"
+  },
+  {
+   "fieldname": "about_partner",
+   "fieldtype": "Small Text",
+   "label": "About Partner"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-15 13:45:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Partner Preference",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -57,12 +57,23 @@ app_license = "mit"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "shaadi"
 
 # website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
+role_home_page = {
+	"Matrimonial Member": "shaadi",
+	"Matrimonial Premium Member": "shaadi",
+	"Guest": "shaadi",
+	"Website User": "shaadi",
+}
+
+# Website Route Rules - Frontend route rules to make frontend the home page
+website_route_rules = [
+	{"from_route": "/", "to_route": "shaadi"},
+	{"from_route": "/home", "to_route": "shaadi"},
+	{"from_route": "/account/login", "to_route": "shaadi"},
+	{"from_route": "/account/signup", "to_route": "shaadi"},
+]
 
 # Generators
 # ----------
@@ -83,7 +94,22 @@ app_license = "mit"
 # ------------
 
 # before_install = "shaadi.install.before_install"
-# after_install = "shaadi.install.after_install"
+after_install = "shaadi.shaadi.install.after_install"
+
+# Fixtures
+# --------
+# Note: Roles and Role Profiles are created programmatically in install.py (ERPNext pattern)
+fixtures = [
+	{
+		"dt": "Subscription Plan"
+	},
+	{
+		"dt": "Workspace",
+		"filters": [
+			["module", "=", "Shaadi"]
+		]
+	}
+]
 
 # Uninstallation
 # ------------
@@ -137,34 +163,33 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Member Profile": {
+		"after_insert": "shaadi.shaadi.utils.notifications.on_profile_created",
+		"on_update": "shaadi.shaadi.utils.notifications.on_profile_updated"
+	},
+	"Match Request": {
+		"on_update": "shaadi.shaadi.utils.notifications.on_interest_response"
+	},
+	"Conversation Message": {
+		"after_insert": "shaadi.shaadi.utils.notifications.on_new_message"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"shaadi.tasks.all"
-# 	],
-# 	"daily": [
-# 		"shaadi.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"shaadi.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"shaadi.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"shaadi.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"daily": [
+		"shaadi.shaadi.tasks.daily.expire_subscriptions",
+		"shaadi.shaadi.tasks.daily.send_match_digest"
+	],
+	"cron": {
+		"0 8 * * *": [
+			"shaadi.shaadi.tasks.daily.precompute_matches"
+		]
+	}
+}
 
 # Testing
 # -------

@@ -1,0 +1,157 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"header_mod\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Shaadi Moderation</b></span>\",\"col\":12}},{\"id\":\"shortcuts_mod\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Quick Actions</b></span>\",\"col\":12}},{\"id\":\"shortcut_mod_1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Member Profile\",\"col\":3}},{\"id\":\"shortcut_mod_2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Match Request\",\"col\":3}},{\"id\":\"shortcut_mod_3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Success Story\",\"col\":3}},{\"id\":\"shortcut_mod_4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Conversation\",\"col\":3}},{\"id\":\"spacer_mod\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"cards_mod\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\"><b>Moderation Tasks</b></span>\",\"col\":12}},{\"id\":\"card_mod_1\",\"type\":\"card\",\"data\":{\"card_name\":\"Profile Verification\",\"col\":4}},{\"id\":\"card_mod_2\",\"type\":\"card\",\"data\":{\"card_name\":\"Content Review\",\"col\":4}},{\"id\":\"card_mod_3\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports & Issues\",\"col\":4}}]",
+ "creation": "2026-03-15 14:01:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "shield",
+ "idx": 0,
+ "indicator_color": "orange",
+ "is_hidden": 0,
+ "label": "Shaadi Moderation",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Profile Verification",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Member Profile",
+   "link_count": 0,
+   "link_to": "Member Profile",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Horoscope Detail",
+   "link_count": 0,
+   "link_to": "Horoscope Detail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Family Detail",
+   "link_count": 0,
+   "link_to": "Family Detail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Content Review",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Success Story",
+   "link_count": 0,
+   "link_to": "Success Story",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Match Request",
+   "link_count": 0,
+   "link_to": "Match Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Conversation",
+   "link_count": 0,
+   "link_to": "Conversation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports & Issues",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Privacy Setting",
+   "link_count": 0,
+   "link_to": "Privacy Setting",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-03-15 14:01:00.000000",
+ "modified_by": "Administrator",
+ "module": "Shaadi",
+ "name": "Shaadi Moderation",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [
+  {
+   "color": "Yellow",
+   "format": "{} Unverified",
+   "label": "Member Profile",
+   "link_to": "Member Profile",
+   "stats_filter": "{\"verified\": 0, \"is_active\": 1}",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "format": "{} Pending",
+   "label": "Match Request",
+   "link_to": "Match Request",
+   "stats_filter": "{\"status\": \"Pending\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "format": "{} Unpublished",
+   "label": "Success Story",
+   "link_to": "Success Story",
+   "stats_filter": "{\"published\": 0}",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "format": "{} Active",
+   "label": "Conversation",
+   "link_to": "Conversation",
+   "stats_filter": "{\"status\": \"Active\"}",
+   "type": "DocType"
+  }
+ ],
+ "title": "Shaadi Moderation"
+}
