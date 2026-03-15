@@ -96,13 +96,14 @@ website_route_rules = [
 # before_install = "shaadi.install.before_install"
 after_install = "shaadi.shaadi.install.after_install"
 
+# Migration hooks - runs after DocTypes are synced and migrated
+after_migrate = "shaadi.shaadi.install.after_migrate"
+
 # Fixtures
 # --------
 # Note: Roles and Role Profiles are created programmatically in install.py (ERPNext pattern)
+# Note: Subscription Plans are created programmatically after DocTypes are synced
 fixtures = [
-	{
-		"dt": "Subscription Plan"
-	},
 	{
 		"dt": "Workspace",
 		"filters": [
