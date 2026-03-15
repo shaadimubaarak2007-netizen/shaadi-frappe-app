@@ -1,0 +1,24 @@
+name: Deploy Shaadi App
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Deploy to Frappe Server
+      uses: rtcamp/action-deploy-frappe@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        FRAPPE_BRANCH: version-15
+        APP_NAME: shaadi
+        SITE_NAME: ${{ github.ref == 'refs/heads/main' && 'shaadi.yourdomain.com' || 'staging.shaadi.yourdomain.com' }}

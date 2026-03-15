@@ -1,0 +1,84 @@
+name: Lint Shaadi App
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort bandit
+        pip install frappe-bench
+    
+    - name: Lint with flake8
+      run: |
+        flake8 shaadi/shaadi --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 shaadi/shaadi --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Check code formatting with black
+      run: |
+        black --check shaadi/shaadi
+    
+    - name: Check import sorting with isort
+      run: |
+        isort --check-only shaadi/shaadi
+    
+    - name: Security check with bandit
+      run: |
+        bandit -r shaadi/shaadi -f json -o bandit-report.json || true
+    
+    - name: Upload security report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-report
+        path: bandit-report.json
+
+  lint-javascript:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: shaadi_ui/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd shaadi_ui
+        npm ci
+    
+    - name: Run ESLint
+      run: |
+        cd shaadi_ui
+        npm run lint || true
+    
+    - name: Run Prettier
+      run: |
+        cd shaadi_ui
+        npm run format:check || true
+    
+    - name: Security audit
+      run: |
+        cd shaadi_ui
+        npm audit --audit-level moderate
