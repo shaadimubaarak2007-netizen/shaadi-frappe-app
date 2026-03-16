@@ -10,7 +10,7 @@ export function initSocket() {
 
 	try {
 		// Get site name from window or default
-		const siteName = window.site_name || 'shaadi.localhost'
+		const siteName = window.site_name || 'shaadi.amitkumar.live'
 		const host = window.location.hostname
 		const port = window.location.port
 		
