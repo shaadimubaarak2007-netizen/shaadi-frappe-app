@@ -507,9 +507,18 @@ def get_mutual_matches_count():
 
 def get_next_swipe_profile(current_user_profile):
 	"""Get the next profile for swiping"""
-	queue_data = get_swipe_queue(limit=1)
-	profiles = queue_data.get("profiles", [])
-	return profiles[0] if profiles else None
+	try:
+		queue_data = get_swipe_queue(limit=1)
+		# Ensure queue_data is a dict
+		if not isinstance(queue_data, dict):
+			frappe.log_error(f"get_swipe_queue returned non-dict: {type(queue_data)}", "Swipe Queue Error")
+			return None
+		
+		profiles = queue_data.get("profiles", [])
+		return profiles[0] if profiles else None
+	except Exception as e:
+		frappe.log_error(frappe.get_traceback(), "Get Next Swipe Profile Error")
+		return None
 
 
 @frappe.whitelist()
