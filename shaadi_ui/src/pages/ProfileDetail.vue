@@ -423,10 +423,20 @@ async function sendInterest() {
       profileStatus.value = response.interaction_status
     }
     
-    toast.success('Interest sent successfully!')
+    toast({
+      title: 'Success!',
+      text: 'Interest sent successfully!',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
   } catch (error) {
     console.error('Error sending interest:', error)
-    toast.error(error.message || 'Failed to send interest')
+    toast({
+      title: 'Error',
+      text: error.message || 'Failed to send interest',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
@@ -453,11 +463,21 @@ async function sendMessage() {
       }
     } else {
       console.log('No profile found')
-      toast.error('Unable to verify your profile. Please try again.')
+      toast({
+        title: 'Error',
+        text: 'Unable to verify your profile. Please try again.',
+        icon: 'alert-circle',
+        iconClasses: 'text-red-500'
+      })
     }
   } catch (error) {
     console.error('Error checking subscription:', error)
-    toast.error('Unable to verify subscription. Please try again.')
+    toast({
+      title: 'Error',
+      text: 'Unable to verify subscription. Please try again.',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
@@ -476,10 +496,20 @@ async function addToShortlist() {
       profileStatus.value = response.interaction_status
     }
     
-    toast.success('Added to shortlist!')
+    toast({
+      title: 'Success!',
+      text: 'Added to shortlist!',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
   } catch (error) {
     console.error('Error adding to shortlist:', error)
-    toast.error(error.message || 'Failed to add to shortlist')
+    toast({
+      title: 'Error',
+      text: error.message || 'Failed to add to shortlist',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
@@ -495,16 +525,31 @@ async function removeFromShortlist() {
     // Update local status
     await loadProfileStatus()
     
-    toast.success('Removed from shortlist!')
+    toast({
+      title: 'Success!',
+      text: 'Removed from shortlist!',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
   } catch (error) {
     console.error('Error removing from shortlist:', error)
-    toast.error(error.message || 'Failed to remove from shortlist')
+    toast({
+      title: 'Error',
+      text: error.message || 'Failed to remove from shortlist',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
 async function withdrawInterest() {
   if (!profileStatus.value?.sent_interest?.name) {
-    toast.error('No interest found to withdraw')
+    toast({
+      title: 'Error',
+      text: 'No interest found to withdraw',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
     return
   }
   
@@ -516,10 +561,20 @@ async function withdrawInterest() {
     // Update local status
     await loadProfileStatus()
     
-    toast.success('Interest withdrawn successfully!')
+    toast({
+      title: 'Success!',
+      text: 'Interest withdrawn successfully!',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
   } catch (error) {
     console.error('Error withdrawing interest:', error)
-    toast.error(error.message || 'Failed to withdraw interest')
+    toast({
+      title: 'Error',
+      text: error.message || 'Failed to withdraw interest',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
@@ -584,10 +639,20 @@ async function reportProfile() {
         description: reason
       }
     })
-    toast.success('Report submitted. Our team will review it.')
+    toast({
+      title: 'Success!',
+      text: 'Report submitted. Our team will review it.',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
   } catch (error) {
     console.error('Error reporting profile:', error)
-    toast.error('Failed to submit report')
+    toast({
+      title: 'Error',
+      text: 'Failed to submit report',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 

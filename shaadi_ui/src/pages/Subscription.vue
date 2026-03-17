@@ -54,7 +54,7 @@
           :class="[
             'relative overflow-hidden transition-all hover:shadow-xl',
             plan.plan_type === 'Gold' ? 'ring-2 ring-purple-500 transform scale-105' : '',
-            currentSubscription?.plan_details?.plan_type === plan.plan_type ? 'bg-purple-50 border-purple-300' : ''
+            isCurrentPlan(plan) ? 'bg-purple-50 border-purple-300' : ''
           ]"
         >
           <!-- Popular Badge -->
@@ -63,7 +63,7 @@
           </div>
 
           <!-- Current Plan Badge -->
-          <div v-if="currentSubscription?.plan_details?.plan_type === plan.plan_type" class="absolute top-0 left-0 bg-green-500 text-white px-4 py-1 text-sm font-semibold rounded-br-lg">
+          <div v-if="isCurrentPlan(plan)" class="absolute top-0 left-0 bg-green-500 text-white px-4 py-1 text-sm font-semibold rounded-br-lg">
             CURRENT
           </div>
 
@@ -117,7 +117,7 @@
 
           <!-- CTA Button -->
           <Button 
-            v-if="currentSubscription?.plan_details?.plan_type !== plan.plan_type"
+            v-if="!isCurrentPlan(plan)"
             :variant="plan.plan_type === 'Gold' ? 'solid' : 'outline'"
             class="w-full"
             :disabled="plan.plan_type === 'Free'"
@@ -185,8 +185,79 @@
           
           <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <p class="text-sm text-blue-800">
-              <strong>Note:</strong> This is a demo. Payment processing will be implemented in production.
+              <strong>Note:</strong> Click "Proceed to Payment" to complete your purchase securely via Razorpay.
             </p>
+          </div>
+        </div>
+      </template>
+    </Dialog>
+
+    <!-- Payment Modal -->
+    <PaymentModal 
+      v-model="showPaymentModal"
+      :selected-plan="selectedPlan"
+      @payment-complete="handlePaymentComplete"
+    />
+
+    <!-- Payment Result Dialog -->
+    <Dialog 
+      v-model="showPaymentResultModal" 
+      :options="paymentResultDialogOptions"
+    >
+      <template #body-content>
+        <div v-if="paymentResult" class="space-y-4">
+          <!-- Success State -->
+          <div v-if="paymentResult.status === 'success'" class="text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Payment Successful!</h3>
+            <p class="text-gray-600 mb-4">Your subscription has been activated successfully.</p>
+            
+            <div class="bg-gray-50 rounded-lg p-4 text-left space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Transaction ID</span>
+                <span class="font-medium">{{ paymentResult.transactionId }}</span>
+              </div>
+              <div v-if="paymentResult.transaction" class="flex justify-between text-sm">
+                <span class="text-gray-600">Amount Paid</span>
+                <span class="font-medium">₹{{ paymentResult.transaction.amount }}</span>
+              </div>
+              <div v-if="paymentResult.transaction?.razorpay_payment_id" class="flex justify-between text-sm">
+                <span class="text-gray-600">Payment ID</span>
+                <span class="font-medium text-xs">{{ paymentResult.transaction.razorpay_payment_id }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Failure State -->
+          <div v-else class="text-center">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Payment Failed</h3>
+            <p class="text-gray-600 mb-4">
+              {{ paymentResult.error || 'Your payment could not be processed. Please try again.' }}
+            </p>
+            
+            <div class="bg-gray-50 rounded-lg p-4 text-left space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Transaction ID</span>
+                <span class="font-medium">{{ paymentResult.transactionId }}</span>
+              </div>
+              <div v-if="paymentResult.transaction?.error_message" class="text-sm">
+                <span class="text-gray-600">Error</span>
+                <p class="text-red-600 mt-1">{{ paymentResult.transaction.error_message }}</p>
+              </div>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-600">
+              Need help? Contact support with the transaction ID above.
+            </div>
           </div>
         </div>
       </template>
@@ -196,16 +267,20 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { call } from 'frappe-ui'
-import { Card, Button, Dialog, toast } from 'frappe-ui'
-import { useRouter } from 'vue-router'
+import { Card, Button, call, toast } from 'frappe-ui'
+import { useRouter, useRoute } from 'vue-router'
+import PaymentModal from '../components/PaymentModal.vue'
 
 const router = useRouter()
+const route = useRoute()
 const plans = ref([])
 const currentSubscription = ref(null)
 const loadingPlans = ref(false)
 const loadingSubscription = ref(false)
 const showUpgradeModal = ref(false)
+const showPaymentModal = ref(false)
+const showPaymentResultModal = ref(false)
+const paymentResult = ref(null)
 const selectedPlan = ref(null)
 
 const upgradeDialogOptions = computed(() => ({
@@ -213,11 +288,10 @@ const upgradeDialogOptions = computed(() => ({
   disableOutsideClickToClose: true,
   actions: [
     {
-      label: 'Contact Support',
+      label: 'Proceed to Payment',
       variant: 'solid',
       onClick: () => {
         proceedToPayment()
-        showUpgradeModal.value = false
       }
     },
     {
@@ -231,8 +305,54 @@ const upgradeDialogOptions = computed(() => ({
 }))
 
 onMounted(async () => {
+  // Check for payment status in URL (LMS pattern)
+  handlePaymentRedirect()
+  
   await Promise.all([loadPlans(), loadCurrentSubscription()])
 })
+
+async function handlePaymentRedirect() {
+  // Handle payment success/failure from redirect
+  const paymentStatus = route.query.payment
+  const transactionId = route.query.transaction
+  
+  if (paymentStatus && transactionId) {
+    // Fetch transaction details
+    try {
+      const transaction = await call('frappe.client.get', {
+        doctype: 'Payment Transaction',
+        name: transactionId
+      })
+      
+      paymentResult.value = {
+        status: paymentStatus,
+        transaction: transaction,
+        transactionId: transactionId
+      }
+      
+      showPaymentResultModal.value = true
+      
+      // Reload subscription if payment was successful
+      if (paymentStatus === 'success') {
+        setTimeout(() => {
+          loadCurrentSubscription()
+        }, 1000)
+      }
+      
+    } catch (error) {
+      console.error('Error fetching transaction:', error)
+      paymentResult.value = {
+        status: paymentStatus,
+        transactionId: transactionId,
+        error: 'Could not fetch transaction details'
+      }
+      showPaymentResultModal.value = true
+    }
+    
+    // Clean URL
+    router.replace('/subscription')
+  }
+}
 
 async function loadPlans() {
   loadingPlans.value = true
@@ -241,7 +361,12 @@ async function loadPlans() {
     plans.value = response || []
   } catch (error) {
     console.error('Error loading plans:', error)
-    toast.error('Failed to load subscription plans')
+    toast({
+      title: 'Error',
+      text: 'Failed to load subscription plans',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   } finally {
     loadingPlans.value = false
   }
@@ -264,16 +389,68 @@ async function loadCurrentSubscription() {
   }
 }
 
+function isCurrentPlan(plan) {
+  // Check if this plan is the user's current active subscription
+  if (!currentSubscription.value) return false
+  return currentSubscription.value.subscription_plan === plan.name
+}
+
 function selectPlan(plan) {
   if (plan.plan_type === 'Free') return
+  
+  // Prevent selecting current plan
+  if (isCurrentPlan(plan)) {
+    toast({
+      title: 'Already Subscribed',
+      text: 'You are already subscribed to this plan.',
+      icon: 'info',
+      iconClasses: 'text-blue-500'
+    })
+    return
+  }
+  
   selectedPlan.value = plan
   showUpgradeModal.value = true
 }
 
 function proceedToPayment() {
-  toast.info('Please contact support to upgrade your subscription')
+  // Close upgrade modal and open payment modal
   showUpgradeModal.value = false
+  showPaymentModal.value = true
 }
+
+function handlePaymentComplete() {
+  // Close payment modal and reload subscription
+  showPaymentModal.value = false
+  selectedPlan.value = null
+  
+  // Reload subscription data after successful payment
+  setTimeout(() => {
+    loadCurrentSubscription()
+  }, 1000)
+}
+
+function closePaymentResultModal() {
+  showPaymentResultModal.value = false
+  paymentResult.value = null
+}
+
+const paymentResultDialogOptions = computed(() => {
+  if (!paymentResult.value) return {}
+  
+  const isSuccess = paymentResult.value.status === 'success'
+  
+  return {
+    title: isSuccess ? 'Payment Successful!' : 'Payment Failed',
+    actions: [
+      {
+        label: 'Close',
+        variant: 'solid',
+        onClick: closePaymentResultModal
+      }
+    ]
+  }
+})
 
 function formatDate(dateString) {
   if (!dateString) return ''

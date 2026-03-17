@@ -507,8 +507,9 @@ def get_mutual_matches_count():
 
 def get_next_swipe_profile(current_user_profile):
 	"""Get the next profile for swiping"""
-	queue = get_swipe_queue(limit=1)
-	return queue[0] if queue else None
+	queue_data = get_swipe_queue(limit=1)
+	profiles = queue_data.get("profiles", [])
+	return profiles[0] if profiles else None
 
 
 @frappe.whitelist()

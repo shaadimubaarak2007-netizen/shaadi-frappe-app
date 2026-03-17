@@ -193,7 +193,12 @@ async function loadMutualMatches() {
 async function handleSwipe({ action, profile, response }) {
   if (action === 'like') {
     likeCount.value++
-    toast.success(`You liked ${profile.full_name}`)
+    toast({
+      title: 'Liked!',
+      text: `You liked ${profile.full_name}`,
+      icon: 'heart',
+      iconClasses: 'text-pink-500'
+    })
   } else {
     passCount.value++
   }
@@ -214,11 +219,21 @@ async function handleMatch({ profile, matchData }) {
   // Refresh statistics
   await loadSwipeStatistics()
   
-  toast.success(`🎉 It's a Match! You and ${profile.full_name} liked each other!`)
+  toast({
+    title: "It's a Match! 🎉",
+    text: `You and ${profile.full_name} liked each other!`,
+    icon: 'check-circle',
+    iconClasses: 'text-green-500'
+  })
 }
 
 function handleEmpty() {
-  toast.info('No more profiles available for now')
+  toast({
+    title: 'No More Profiles',
+    text: 'No more profiles available for now. Check back later!',
+    icon: 'info',
+    iconClasses: 'text-blue-500'
+  })
 }
 
 function closeMatchModal() {

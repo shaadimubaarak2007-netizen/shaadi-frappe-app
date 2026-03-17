@@ -103,7 +103,23 @@ async function loadProfiles() {
     const response = await call('shaadi.shaadi.api.matchmaking.get_swipe_queue', {
       limit: 10
     })
-    profiles.value = response || []
+    // API returns {profiles: [...], total: N}, extract the profiles array
+    const loadedProfiles = response?.profiles || []
+    
+    // Deduplicate profiles by name to avoid duplicate keys
+    const uniqueProfiles = []
+    const seenNames = new Set()
+    
+    for (const profile of loadedProfiles) {
+      if (!seenNames.has(profile.name)) {
+        seenNames.add(profile.name)
+        uniqueProfiles.push(profile)
+      }
+    }
+    
+    profiles.value = uniqueProfiles
+    
+    console.log('Loaded swipe queue:', profiles.value.length, 'profiles')
     
     if (profiles.value.length === 0) {
       emit('empty')
@@ -159,9 +175,13 @@ async function loadMoreProfiles() {
       limit: 5
     })
     
-    if (response && response.length > 0) {
+    // API returns {profiles: [...], total: N}
+    const newProfiles = response?.profiles || []
+    
+    if (newProfiles.length > 0) {
       // Add new profiles to the end
-      profiles.value.push(...response)
+      profiles.value.push(...newProfiles)
+      console.log('Loaded', newProfiles.length, 'more profiles')
     }
   } catch (error) {
     console.error('Error loading more profiles:', error)

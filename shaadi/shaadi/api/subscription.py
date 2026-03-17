@@ -28,21 +28,20 @@ def get_current_subscription(profile_id):
 	if current_user_profile != profile_id:
 		frappe.throw(_("Unauthorized access"))
 	
-	# First, check for active Member Subscription record
+	# First, check for active Subscription record (payment system)
 	subscription = frappe.db.get_value(
-		"Member Subscription",
+		"Subscription",
 		{
 			"member_profile": profile_id,
 			"status": "Active"
 		},
-		["name", "plan", "start_date", "end_date", "contacts_used", 
-		 "messages_today", "amount_paid"],
+		["name", "subscription_plan", "start_date", "end_date"],
 		as_dict=True
 	)
 	
 	if subscription:
-		# Get plan details from Member Subscription
-		plan = frappe.get_doc("Subscription Plan", subscription["plan"])
+		# Get plan details from Subscription
+		plan = frappe.get_doc("Subscription Plan", subscription["subscription_plan"])
 		subscription["plan_details"] = {
 			"plan_name": plan.plan_name,
 			"plan_type": plan.plan_type,
@@ -55,6 +54,52 @@ def get_current_subscription(profile_id):
 			"featured_profile": plan.featured_profile,
 			"priority_support": plan.priority_support
 		}
+		
+		# Calculate remaining quota (get usage from Member Profile)
+		profile = frappe.get_doc("Member Profile", profile_id)
+		contacts_used = getattr(profile, 'contacts_used', 0) or 0
+		messages_today = getattr(profile, 'messages_today', 0) or 0
+		
+		subscription["contacts_used"] = contacts_used
+		subscription["messages_today"] = messages_today
+		subscription["contacts_remaining"] = plan.contacts_allowed - contacts_used
+		subscription["messages_remaining"] = plan.messages_allowed - messages_today
+		subscription["days_remaining"] = (getdate(subscription["end_date"]) - getdate(nowdate())).days
+		subscription["subscription_plan"] = subscription["subscription_plan"]  # Add plan ID for frontend
+		
+		return subscription
+	
+	# Second, check for active Member Subscription record (old system)
+	member_subscription = frappe.db.get_value(
+		"Member Subscription",
+		{
+			"member_profile": profile_id,
+			"status": "Active"
+		},
+		["name", "plan", "start_date", "end_date", "contacts_used", 
+		 "messages_today", "amount_paid"],
+		as_dict=True
+	)
+	
+	subscription = member_subscription
+	
+	if subscription:
+		# Get plan details from Member Subscription (old system)
+		plan = frappe.get_doc("Subscription Plan", subscription["plan"])
+		subscription["subscription_plan"] = subscription["plan"]  # Add for consistency
+		subscription["plan_details"] = {
+			"plan_name": plan.plan_name,
+			"plan_type": plan.plan_type,
+			"contacts_allowed": plan.contacts_allowed,
+			"messages_allowed": plan.messages_allowed,
+			"can_view_contact": plan.can_view_contact,
+			"can_send_message": plan.can_send_message,
+			"can_see_horoscope": plan.can_see_horoscope,
+			"can_see_all_photos": plan.can_see_all_photos,
+			"featured_profile": plan.featured_profile,
+			"priority_support": plan.priority_support
+		}
+		subscription["subscription_plan"] = subscription["plan"]  # Add for consistency
 		
 		# Calculate remaining quota
 		subscription["contacts_remaining"] = plan.contacts_allowed - subscription["contacts_used"]

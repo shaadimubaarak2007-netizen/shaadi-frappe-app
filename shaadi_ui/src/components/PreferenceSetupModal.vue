@@ -156,12 +156,22 @@ async function saveQuickPreferences() {
       preferences: preferences
     })
 
-    toast.success('Preferences saved successfully!')
+    toast({
+      title: 'Success!',
+      text: 'Preferences saved successfully!',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
     show.value = false
     emit('saved')
   } catch (error) {
     console.error('Error saving preferences:', error)
-    toast.error(error.message || 'Failed to save preferences')
+    toast({
+      title: 'Error',
+      text: error.message || 'Failed to save preferences',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   } finally {
     saving.value = false
   }

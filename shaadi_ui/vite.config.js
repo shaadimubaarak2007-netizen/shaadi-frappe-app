@@ -1,29 +1,18 @@
-import path from "node:path"
+import path from "path"
 import vue from "@vitejs/plugin-vue"
 import frappeui from "frappe-ui/vite"
 import { defineConfig } from "vite"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		frappeui({
-			frappeProxy: true,
-			jinjaBootData: true,
-			lucideIcons: true,
-			buildConfig: {
-				outDir: "../shaadi/public",
-				indexHtmlPath: "../shaadi/www/shaadi.html",
-				emptyOutDir: true,
-				sourcemap: true,
-			},
-		}),
-		vue(),
-	],
+	plugins: [vue(), frappeui()],
 	build: {
-		chunkSizeWarningLimit: 1500,
 		outDir: "../shaadi/public",
 		emptyOutDir: true,
 		target: "es2015",
+		commonjsOptions: {
+			include: [/tailwind.config.js/, /node_modules/],
+		},
 		sourcemap: true,
 		rollupOptions: {
 			output: {
@@ -36,20 +25,27 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "src"),
-			"tailwind.config.js": path.resolve(__dirname, "tailwind.config.js"),
 		},
 	},
 	optimizeDeps: {
-		include: ["feather-icons", "showdown", "highlight.js/lib/core", "interactjs"],
+		include: [
+			"frappe-ui > feather-icons",
+			"showdown",
+			"tailwind.config.js",
+			"engine.io-client",
+		],
 	},
 	server: {
-		allowedHosts: true,
-		hmr: {
-			port: 8080,
-			clientPort: 8080,
-		},
-		watch: {
-			usePolling: true,
+		port: 8080,
+		proxy: {
+			"^/(app|login|api|assets|files|private)": {
+				target: "http://localhost:8000",
+				ws: true,
+				router: function (req) {
+					const site_name = req.headers.host.split(":")[0]
+					return `http://${site_name}:8000`
+				},
+			},
 		},
 	},
 })

@@ -301,7 +301,12 @@ async function handleProfileParameter() {
     }
   } catch (error) {
     console.error('Error handling profile parameter:', error)
-    toast.error('Failed to open conversation')
+    toast({
+      title: 'Error',
+      text: 'Failed to open conversation',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
@@ -353,15 +358,21 @@ async function sendMessage() {
     
     // Check if it's a subscription limit error
     if (error.message && error.message.includes('subscription')) {
-      toast.error('Message limit reached! Please upgrade your subscription to continue messaging.', {
-        duration: 6,
-        action: {
-          label: 'Upgrade Now',
-          onClick: () => router.push('/subscription')
-        }
+      toast({
+        title: 'Message Limit Reached',
+        text: 'Please upgrade your subscription to continue messaging.',
+        icon: 'alert-circle',
+        iconClasses: 'text-red-500'
       })
+      // Optionally redirect to subscription page
+      setTimeout(() => router.push('/subscription'), 2000)
     } else {
-      toast.error(error.message || 'Failed to send message')
+      toast({
+        title: 'Error',
+        text: error.message || 'Failed to send message',
+        icon: 'alert-circle',
+        iconClasses: 'text-red-500'
+      })
     }
   } finally {
     sendingMessage.value = false
@@ -416,15 +427,11 @@ function handleNewMessage(data) {
   // Show notifications if message is not in current conversation
   if (!selectedConversation.value || data.conversation !== selectedConversation.value.name) {
     // Toast notification
-    toast.info(`New message from ${data.sender_name}`, {
-      duration: 5,
-      action: {
-        label: 'View',
-        onClick: () => {
-          const conv = conversations.value.find(c => c.name === data.conversation)
-          if (conv) selectConversation(conv)
-        }
-      }
+    toast({
+      title: 'New Message',
+      text: `New message from ${data.sender_name}`,
+      icon: 'message-circle',
+      iconClasses: 'text-blue-500'
     })
     
     // Browser notification

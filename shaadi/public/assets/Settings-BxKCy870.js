@@ -1,2 +1,0 @@
-import{E as o,j as n,k as a,m as s,n as r,p as l,i as c}from"./frappe-ui-CLhsd40l.js";const i={},x={class:"min-h-screen bg-gray-50"},d={class:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"};function m(p,t){const e=c("Card");return n(),a("div",x,[s("div",d,[t[1]||(t[1]=s("h1",{class:"text-3xl font-bold text-gray-900 mb-8"},"Settings",-1)),r(e,null,{default:l(()=>[...t[0]||(t[0]=[s("p",{class:"text-gray-600"},"Settings page - Coming soon",-1)])]),_:1})])])}const g=o(i,[["render",m]]);export{g as default};
-//# sourceMappingURL=Settings-BxKCy870.js.map

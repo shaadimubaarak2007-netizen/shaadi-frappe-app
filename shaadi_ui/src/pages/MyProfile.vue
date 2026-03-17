@@ -605,7 +605,12 @@ async function loadProfile() {
     }
   } catch (error) {
     console.error('Error loading profile:', error)
-    toast.error('Failed to load profile')
+    toast({
+      title: 'Error',
+      text: 'Failed to load profile',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   } finally {
     loading.value = false
   }
@@ -652,12 +657,22 @@ async function saveSection(section) {
     
     Object.assign(originalData, formData)
     editMode[section] = false
-    toast.success('Profile updated successfully!')
+    toast({
+      title: 'Success!',
+      text: 'Profile updated successfully!',
+      icon: 'check-circle',
+      iconClasses: 'text-green-500'
+    })
     
     await loadProfile()
   } catch (error) {
     console.error('Error saving profile:', error)
-    toast.error(error.message || 'Failed to update profile')
+    toast({
+      title: 'Error',
+      text: error.message || 'Failed to update profile',
+      icon: 'alert-circle',
+      iconClasses: 'text-red-500'
+    })
   }
 }
 
