@@ -5,7 +5,14 @@ import { defineConfig } from "vite"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [vue(), frappeui()],
+	plugins: [
+		vue(),
+		frappeui({
+			buildConfig: {
+				indexHtmlPath: path.resolve(__dirname, 'index.html')
+			}
+		})
+	],
 	build: {
 		outDir: "../shaadi/public",
 		emptyOutDir: true,
