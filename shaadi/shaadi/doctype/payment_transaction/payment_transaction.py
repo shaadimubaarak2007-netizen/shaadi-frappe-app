@@ -24,8 +24,12 @@ class PaymentTransaction(Document):
 		try:
 			frappe.logger().info(f"Payment authorized for {self.name}: {payment_status}")
 			
-			# Frontend URL for redirect
-			frontend_url = "http://localhost:8080"
+			# Frontend URL for redirect - detect environment dynamically
+			if "localhost" in frappe.local.site:
+				frontend_url = "http://localhost:8080"
+			else:
+				protocol = "https://" if frappe.local.conf.ssl_certificate else "http://"
+				frontend_url = f"{protocol}{frappe.local.site}"
 			
 			if payment_status in ["Authorized", "Completed"]:
 				# LMS pattern: Update payment record using Integration Request data
