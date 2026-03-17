@@ -84,8 +84,8 @@ def initiate_payment(subscription_plan_id):
 		
 		# STEP 2: Prepare payment details with transaction reference
 		# Redirect to frontend Vue app after payment
-		# Detect environment and use appropriate frontend URL
-		if frappe.local.conf.developer_mode:
+		# Detect environment based on site name (more reliable than developer_mode)
+		if "localhost" in frappe.local.site:
 			# Development: Vue dev server
 			frontend_url = "http://localhost:8080"
 		else:
