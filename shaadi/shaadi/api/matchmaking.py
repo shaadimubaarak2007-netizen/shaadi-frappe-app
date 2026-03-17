@@ -359,12 +359,24 @@ def get_swipe_queue(limit=10):
 	)
 	
 	# Get recommendations excluding already swiped profiles
-	recommendations = get_recommendations(current_user_profile, limit=limit*2)
+	try:
+		recommendations = get_recommendations(current_user_profile, limit=limit*2)
+	except Exception as e:
+		frappe.log_error(frappe.get_traceback(), "Get Recommendations Error")
+		recommendations = []
 	
 	# Filter out already swiped profiles
 	available_profiles = []
 	for profile in recommendations:
-		if profile["name"] not in swiped_profiles:
+		# Ensure profile is a dict and has required fields
+		if not isinstance(profile, dict):
+			continue
+		
+		profile_name = profile.get("name")
+		if not profile_name:
+			continue
+		
+		if profile_name not in swiped_profiles:
 			available_profiles.append(profile)
 		
 		if len(available_profiles) >= limit:
