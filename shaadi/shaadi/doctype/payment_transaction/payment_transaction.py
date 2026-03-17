@@ -29,15 +29,15 @@ class PaymentTransaction(Document):
 				frontend_url = "http://localhost:8080"
 			else:
 				protocol = "https://" if frappe.local.conf.ssl_certificate else "http://"
-				frontend_url = f"{protocol}{frappe.local.site}"
+				frontend_url = f"{protocol}{frappe.local.site}/shaadi"
 			
 			if payment_status in ["Authorized", "Completed"]:
 				# LMS pattern: Update payment record using Integration Request data
 				# Note: update_payment_record handles saving the transaction
 				update_payment_record(self.name)
 				
-				# Redirect to frontend Vue app with success status
-				return f"{frontend_url}/subscription?payment=success&transaction={self.name}"
+				# Redirect to frontend Vue app with success status (hash routing)
+				return f"{frontend_url}#/subscription?payment=success&transaction={self.name}"
 			else:
 				# Reload to avoid timestamp mismatch
 				txn = frappe.get_doc("Payment Transaction", self.name)
@@ -47,8 +47,8 @@ class PaymentTransaction(Document):
 				txn.save(ignore_permissions=True)
 				frappe.db.commit()
 				
-				# Redirect to frontend Vue app with failure status
-				return f"{frontend_url}/subscription?payment=failed&transaction={self.name}"
+				# Redirect to frontend Vue app with failure status (hash routing)
+				return f"{frontend_url}#/subscription?payment=failed&transaction={self.name}"
 				
 		except Exception as e:
 			frappe.log_error(frappe.get_traceback(), "Payment Authorization Error")
@@ -59,8 +59,8 @@ class PaymentTransaction(Document):
 			txn.save(ignore_permissions=True)
 			frappe.db.commit()
 			
-			# Redirect to frontend Vue app with error status
-			return f"{frontend_url}/subscription?payment=error&transaction={self.name}"
+			# Redirect to frontend Vue app with error status (hash routing)
+			return f"{frontend_url}#/subscription?payment=error&transaction={self.name}"
 	
 	def create_subscription(self):
 		"""Create or update member subscription after successful payment"""

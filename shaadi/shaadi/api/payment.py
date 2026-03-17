@@ -89,9 +89,9 @@ def initiate_payment(subscription_plan_id):
 			# Development: Vue dev server
 			frontend_url = "http://localhost:8080"
 		else:
-			# Production: Use site URL with https
+			# Production: Use site URL with /shaadi base path for Vue app
 			protocol = "https://" if frappe.local.conf.ssl_certificate else "http://"
-			frontend_url = f"{protocol}{frappe.local.site}"
+			frontend_url = f"{protocol}{frappe.local.site}/shaadi"
 		
 		payment_details = {
 			"amount": float(plan.price_inr or plan.price),
@@ -104,7 +104,7 @@ def initiate_payment(subscription_plan_id):
 			"order_id": payment_transaction.name,
 			"currency": "INR",
 			"payment_gateway": payment_gateway,
-			"redirect_to": f"{frontend_url}/subscription?transaction={payment_transaction.name}",
+			"redirect_to": f"{frontend_url}#/subscription?transaction={payment_transaction.name}",
 			"payment": payment_transaction.name  # LMS pattern: link to payment record
 		}
 		
