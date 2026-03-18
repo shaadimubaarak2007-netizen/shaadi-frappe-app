@@ -22,14 +22,14 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@iconify/json": "^2.2.162",
+		"@iconify/json": "^2.2.451",
 		"@vitejs/plugin-vue": "4.4.0",
 		"@vitest/coverage-v8": "^2.1.8",
 		"autoprefixer": "^10.4.2",
 		"jsdom": "^25.0.1",
 		"postcss": "^8.4.5",
 		"tailwindcss": "^3.4.15",
-		"unplugin-icons": "^0.19.3",
+		"unplugin-icons": "^23.0.1",
 		"vite": "5.4.10",
 		"vitest": "^2.1.8"
 	}

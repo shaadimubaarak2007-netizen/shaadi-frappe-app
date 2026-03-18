@@ -45,11 +45,9 @@
                   <FormControl
                     type="select"
                     v-model="formData.gender"
-                    :options="[
-                      { label: 'Male', value: 'Male' },
-                      { label: 'Female', value: 'Female' }
-                    ]"
+                    :options="genderOptions"
                     placeholder="Select gender"
+                    :disabled="loadingOptions"
                   />
                 </div>
                 <div>
@@ -122,11 +120,12 @@
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">State *</label>
-                  <Input
+                  <FormControl
+                    type="select"
                     v-model="formData.state"
-                    type="text"
-                    placeholder="Enter your state"
-                    required
+                    :options="stateOptions"
+                    placeholder="Select state"
+                    :disabled="loadingOptions"
                   />
                 </div>
               </div>
@@ -148,6 +147,7 @@
                     v-model="formData.religion"
                     :options="religionOptions"
                     placeholder="Select religion"
+                    :disabled="loadingOptions"
                   />
                 </div>
                 <div>
@@ -157,6 +157,7 @@
                     v-model="formData.marital_status"
                     :options="maritalStatusOptions"
                     placeholder="Select marital status"
+                    :disabled="loadingOptions"
                   />
                 </div>
                 <div>
@@ -166,6 +167,7 @@
                     v-model="formData.education"
                     :options="educationOptions"
                     placeholder="Select education"
+                    :disabled="loadingOptions"
                   />
                 </div>
                 <div>
@@ -175,6 +177,7 @@
                     v-model="formData.occupation"
                     :options="occupationOptions"
                     placeholder="Select occupation"
+                    :disabled="loadingOptions"
                   />
                 </div>
               </div>
@@ -247,7 +250,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { call, Input, FormControl, Button, Card, ErrorMessage, FeatherIcon } from 'frappe-ui'
 
@@ -272,40 +275,42 @@ const agreedToTerms = ref(false)
 const loading = ref(false)
 const error = ref(null)
 const success = ref(false)
+const loadingOptions = ref(true)
 
-const religionOptions = [
-  { label: 'Hindu', value: 'Hindu' },
-  { label: 'Muslim', value: 'Muslim' },
-  { label: 'Christian', value: 'Christian' },
-  { label: 'Sikh', value: 'Sikh' },
-  { label: 'Jain', value: 'Jain' },
-  { label: 'Buddhist', value: 'Buddhist' },
-  { label: 'Other', value: 'Other' }
-]
+// Dynamic options from Frappe
+const genderOptions = ref([])
+const religionOptions = ref([])
+const maritalStatusOptions = ref([])
+const educationOptions = ref([])
+const occupationOptions = ref([])
+const stateOptions = ref([])
 
-const maritalStatusOptions = [
-  { label: 'Never Married', value: 'Never Married' },
-  { label: 'Divorced', value: 'Divorced' },
-  { label: 'Widowed', value: 'Widowed' },
-  { label: 'Awaiting Divorce', value: 'Awaiting Divorce' }
-]
-
-const educationOptions = [
-  { label: 'High School', value: 'High School' },
-  { label: 'Diploma', value: 'Diploma' },
-  { label: 'Graduation', value: 'Graduation' },
-  { label: 'Post Graduation', value: 'Post Graduation' },
-  { label: 'Doctorate', value: 'Doctorate' }
-]
-
-const occupationOptions = [
-  { label: 'Business/Self Employed', value: 'Business/Self Employed' },
-  { label: 'Private Job', value: 'Private Job' },
-  { label: 'Government Job', value: 'Government Job' },
-  { label: 'Defense', value: 'Defense' },
-  { label: 'NRI', value: 'NRI' },
-  { label: 'Not Working', value: 'Not Working' }
-]
+// Fetch field options from Frappe on component mount
+onMounted(async () => {
+  try {
+    const options = await call('shaadi.shaadi.api.form_options.get_member_profile_options')
+    
+    if (options.error) {
+      console.error('Error fetching options:', options.error)
+      error.value = 'Failed to load form options. Please refresh the page.'
+      return
+    }
+    
+    // Set options from Frappe
+    genderOptions.value = options.gender || []
+    religionOptions.value = options.religion || []
+    maritalStatusOptions.value = options.marital_status || []
+    educationOptions.value = options.education || []
+    occupationOptions.value = options.occupation || []
+    stateOptions.value = options.state || []
+    
+    loadingOptions.value = false
+  } catch (err) {
+    console.error('Failed to fetch form options:', err)
+    error.value = 'Failed to load form options. Please refresh the page.'
+    loadingOptions.value = false
+  }
+})
 
 async function handleSubmit() {
   if (!agreedToTerms.value) {
