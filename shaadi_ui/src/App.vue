@@ -3,6 +3,9 @@
     <Navigation />
     <router-view />
     
+    <!-- PWA Install Banner -->
+    <InstallBanner />
+    
     <!-- Footer with Developer Credits -->
     <footer class="bg-white border-t border-gray-200 py-4 mt-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,6 +39,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Navigation from '@/components/Navigation.vue'
 import PreferenceSetupModal from '@/components/PreferenceSetupModal.vue'
+import InstallBanner from '@/components/InstallBanner.vue'
 import { call } from 'frappe-ui'
 import { session } from './data/session'
 
