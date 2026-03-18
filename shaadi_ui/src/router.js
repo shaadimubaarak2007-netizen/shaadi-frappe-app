@@ -22,6 +22,12 @@ const routes = [
 		meta: { requiresAuth: false }
 	},
 	{
+		name: "ForgotPassword",
+		path: "/forgot-password",
+		component: () => import("@/pages/ForgotPassword.vue"),
+		meta: { requiresAuth: false }
+	},
+	{
 		path: "/login",
 		redirect: "/signin"
 	},

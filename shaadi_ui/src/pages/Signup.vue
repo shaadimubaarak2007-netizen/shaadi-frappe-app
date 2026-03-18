@@ -31,42 +31,31 @@
                 <h3 class="text-lg font-semibold text-gray-900">Personal Information</h3>
               </div>
               <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Full Name *</label>
-                  <Input
-                    v-model="formData.full_name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Gender *</label>
-                  <FormControl
-                    type="select"
-                    v-model="formData.gender"
-                    :options="genderOptions"
-                    placeholder="Select gender"
-                    :disabled="loadingOptions"
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Date of Birth *</label>
-                  <Input
-                    v-model="formData.dob"
-                    type="date"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Phone Number *</label>
-                  <Input
-                    v-model="formData.phone"
-                    type="tel"
-                    placeholder="+91 9876543210"
-                    required
-                  />
-                </div>
+                <FormControl
+                  v-model="formData.full_name"
+                  :label="'Full Name'"
+                  type="text"
+                  placeholder="Enter your full name"
+                />
+                <FormControl
+                  type="select"
+                  v-model="formData.gender"
+                  :options="genderOptions"
+                  :label="'Gender'"
+                  placeholder="Select gender"
+                  :disabled="optionsResource.loading"
+                />
+                <FormControl
+                  v-model="formData.dob"
+                  :label="'Date of Birth'"
+                  type="date"
+                />
+                <FormControl
+                  v-model="formData.phone"
+                  :label="'Phone Number'"
+                  type="tel"
+                  placeholder="+91 9876543210"
+                />
               </div>
             </div>
 
@@ -74,28 +63,20 @@
             <div class="space-y-4">
               <div class="flex items-center space-x-2 mb-4">
                 <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <FeatherIcon name="lock" class="w-4 h-4 text-purple-600" />
+                  <FeatherIcon name="mail" class="w-4 h-4 text-purple-600" />
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900">Account Information</h3>
               </div>
-              <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Email Address *</label>
-                  <Input
-                    v-model="formData.email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Password *</label>
-                  <Input
-                    v-model="formData.password"
-                    type="password"
-                    placeholder="Create a strong password"
-                    required
-                  />
+              <FormControl
+                v-model="formData.email"
+                :label="'Email Address'"
+                type="email"
+                placeholder="your.email@example.com"
+              />
+              <div class="text-sm text-gray-600 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div class="flex items-start">
+                  <FeatherIcon name="info" class="w-4 h-4 text-blue-600 mt-0.5 mr-2 flex-shrink-0" />
+                  <p>After registration, you'll receive a password reset link via email to set your password.</p>
                 </div>
               </div>
             </div>
@@ -109,25 +90,20 @@
                 <h3 class="text-lg font-semibold text-gray-900">Location</h3>
               </div>
               <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">City *</label>
-                  <Input
-                    v-model="formData.city"
-                    type="text"
-                    placeholder="Enter your city"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">State *</label>
-                  <FormControl
-                    type="select"
-                    v-model="formData.state"
-                    :options="stateOptions"
-                    placeholder="Select state"
-                    :disabled="loadingOptions"
-                  />
-                </div>
+                <FormControl
+                  v-model="formData.city"
+                  :label="'City'"
+                  type="text"
+                  placeholder="Enter your city"
+                />
+                <FormControl
+                  type="select"
+                  v-model="formData.state"
+                  :options="stateOptions"
+                  :label="'State'"
+                  placeholder="Select state"
+                  :disabled="optionsResource.loading"
+                />
               </div>
             </div>
 
@@ -140,46 +116,38 @@
                 <h3 class="text-lg font-semibold text-gray-900">Basic Details</h3>
               </div>
               <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Religion *</label>
-                  <FormControl
-                    type="select"
-                    v-model="formData.religion"
-                    :options="religionOptions"
-                    placeholder="Select religion"
-                    :disabled="loadingOptions"
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Marital Status *</label>
-                  <FormControl
-                    type="select"
-                    v-model="formData.marital_status"
-                    :options="maritalStatusOptions"
-                    placeholder="Select marital status"
-                    :disabled="loadingOptions"
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Education *</label>
-                  <FormControl
-                    type="select"
-                    v-model="formData.education"
-                    :options="educationOptions"
-                    placeholder="Select education"
-                    :disabled="loadingOptions"
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Occupation *</label>
-                  <FormControl
-                    type="select"
-                    v-model="formData.occupation"
-                    :options="occupationOptions"
-                    placeholder="Select occupation"
-                    :disabled="loadingOptions"
-                  />
-                </div>
+                <FormControl
+                  type="select"
+                  v-model="formData.religion"
+                  :options="religionOptions"
+                  :label="'Religion'"
+                  placeholder="Select religion"
+                  :disabled="optionsResource.loading"
+                />
+                <FormControl
+                  type="select"
+                  v-model="formData.marital_status"
+                  :options="maritalStatusOptions"
+                  :label="'Marital Status'"
+                  placeholder="Select marital status"
+                  :disabled="optionsResource.loading"
+                />
+                <FormControl
+                  type="select"
+                  v-model="formData.education"
+                  :options="educationOptions"
+                  :label="'Education'"
+                  placeholder="Select education"
+                  :disabled="optionsResource.loading"
+                />
+                <FormControl
+                  type="select"
+                  v-model="formData.occupation"
+                  :options="occupationOptions"
+                  :label="'Occupation'"
+                  placeholder="Select occupation"
+                  :disabled="optionsResource.loading"
+                />
               </div>
             </div>
 
@@ -212,7 +180,7 @@
                 <FeatherIcon name="check-circle" class="h-5 w-5 text-green-500 mt-0.5" />
                 <div class="ml-3">
                   <h3 class="text-sm font-semibold text-green-800">Registration Successful!</h3>
-                  <p class="mt-1 text-sm text-green-700">Your account has been created. Redirecting to login...</p>
+                  <p class="mt-1 text-sm text-green-700">{{ successMessage }}</p>
                 </div>
               </div>
             </div>
@@ -223,7 +191,7 @@
                 type="submit"
                 variant="solid"
                 size="lg"
-                :loading="loading"
+                :loading="registerResource.loading"
                 class="w-full !py-3"
               >
                 <template #prefix>
@@ -250,9 +218,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { call, Input, FormControl, Button, Card, ErrorMessage, FeatherIcon } from 'frappe-ui'
+import { createResource, FormControl, Button, Card, ErrorMessage, FeatherIcon } from 'frappe-ui'
 
 const router = useRouter()
 
@@ -262,7 +230,6 @@ const formData = ref({
   dob: '',
   phone: '',
   email: '',
-  password: '',
   city: '',
   state: '',
   religion: '',
@@ -272,10 +239,9 @@ const formData = ref({
 })
 
 const agreedToTerms = ref(false)
-const loading = ref(false)
 const error = ref(null)
 const success = ref(false)
-const loadingOptions = ref(true)
+const successMessage = ref('')
 
 // Dynamic options from Frappe
 const genderOptions = ref([])
@@ -285,30 +251,44 @@ const educationOptions = ref([])
 const occupationOptions = ref([])
 const stateOptions = ref([])
 
-// Fetch field options from Frappe on component mount
-onMounted(async () => {
-  try {
-    const options = await call('shaadi.shaadi.api.form_options.get_member_profile_options')
-    
-    if (options.error) {
-      console.error('Error fetching options:', options.error)
+// Fetch field options using createResource
+const optionsResource = createResource({
+  url: 'shaadi.shaadi.api.form_options.get_member_profile_options',
+  auto: true,
+  onSuccess(data) {
+    if (data.error) {
       error.value = 'Failed to load form options. Please refresh the page.'
       return
     }
-    
-    // Set options from Frappe
-    genderOptions.value = options.gender || []
-    religionOptions.value = options.religion || []
-    maritalStatusOptions.value = options.marital_status || []
-    educationOptions.value = options.education || []
-    occupationOptions.value = options.occupation || []
-    stateOptions.value = options.state || []
-    
-    loadingOptions.value = false
-  } catch (err) {
-    console.error('Failed to fetch form options:', err)
+    genderOptions.value = data.gender || []
+    religionOptions.value = data.religion || []
+    maritalStatusOptions.value = data.marital_status || []
+    educationOptions.value = data.education || []
+    occupationOptions.value = data.occupation || []
+    stateOptions.value = data.state || []
+  },
+  onError(err) {
     error.value = 'Failed to load form options. Please refresh the page.'
-    loadingOptions.value = false
+  }
+})
+
+// Combined signup and profile creation using custom API
+const registerResource = createResource({
+  url: 'shaadi.shaadi.api.signup.register_member',
+  makeParams(values) {
+    return {
+      full_name: values.full_name,
+      email: values.email,
+      gender: values.gender,
+      dob: values.dob,
+      phone: values.phone,
+      city: values.city,
+      state: values.state,
+      religion: values.religion,
+      marital_status: values.marital_status,
+      education: values.education,
+      occupation: values.occupation
+    }
   }
 })
 
@@ -318,47 +298,26 @@ async function handleSubmit() {
     return
   }
 
-  loading.value = true
   error.value = null
-
+  
   try {
-    // Create user account
-    await call('frappe.core.doctype.user.user.sign_up', {
-      email: formData.value.email,
-      full_name: formData.value.full_name,
-      redirect_to: '/signin'
-    })
-
-    // Create member profile
-    await call('frappe.client.insert', {
-      doc: {
-        doctype: 'Member Profile',
-        full_name: formData.value.full_name,
-        gender: formData.value.gender,
-        dob: formData.value.dob,
-        phone: formData.value.phone,
-        email: formData.value.email,
-        city: formData.value.city,
-        state: formData.value.state,
-        religion: formData.value.religion,
-        marital_status: formData.value.marital_status,
-        education: formData.value.education,
-        occupation: formData.value.occupation,
-        is_active: 1
+    // Register user and create member profile in one call
+    await registerResource.submit(formData.value, {
+      onSuccess(data) {
+        success.value = true
+        successMessage.value = data.message || 'Registration successful! A password reset link has been sent to your email.'
+        // Redirect to login after 5 seconds to give user time to read the message
+        setTimeout(() => {
+          router.push('/signin')
+        }, 5000)
+      },
+      onError(err) {
+        throw new Error(err.messages?.[0] || err)
       }
     })
-
-    success.value = true
-    
-    // Redirect to login after 2 seconds
-    setTimeout(() => {
-      router.push('/signin')
-    }, 2000)
   } catch (err) {
     console.error('Registration error:', err)
     error.value = err.message || 'Failed to create account. Please try again.'
-  } finally {
-    loading.value = false
   }
 }
 </script>

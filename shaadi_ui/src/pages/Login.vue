@@ -55,9 +55,9 @@
               </div>
 
               <div class="text-sm">
-                <a href="#" class="font-medium text-pink-600 hover:text-pink-500 transition-colors">
+                <router-link to="/forgot-password" class="font-medium text-pink-600 hover:text-pink-500 transition-colors">
                   Forgot your password?
-                </a>
+                </router-link>
               </div>
             </div>
 
