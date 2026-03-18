@@ -110,9 +110,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { Button, Avatar, Dropdown, FeatherIcon } from 'frappe-ui'
+import { Button, Avatar, Dropdown, FeatherIcon, call } from 'frappe-ui'
 import { session } from '@/data/session'
 import { useNotifications } from '@/composables/useNotifications'
 import { usePWA } from '@/composables/usePWA'
@@ -314,9 +314,6 @@ async function handleNotificationClick(notification) {
 }
 
 // Load notifications when component mounts and user is logged in
-import { onMounted, onUnmounted, watch } from 'vue'
-import { call } from 'frappe-ui'
-
 onMounted(async () => {
   if (isLoggedIn.value) {
     await loadUserProfile()
