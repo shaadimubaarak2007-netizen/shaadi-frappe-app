@@ -110,16 +110,18 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { Button, Avatar, Dropdown, FeatherIcon } from 'frappe-ui'
 import { session } from '@/data/session'
 import { useNotifications } from '@/composables/useNotifications'
+import { usePWA } from '@/composables/usePWA'
 
 const router = useRouter()
 const route = useRoute()
 const mobileMenuOpen = ref(false)
 const notifications = ref([])
+const pwa = usePWA()
 
 // Use shared notification state for real-time updates
 const { unreadCount, loadUnreadCount, setupRealtimeUpdates, cleanupRealtimeUpdates } = useNotifications()
@@ -177,6 +179,22 @@ const menuItems = [
   { label: 'Shortlist', path: '/shortlist', icon: 'star' }
 ]
 
+const handleInstallApp = () => {
+  if (pwa.isInstalled.value) {
+    alert('App is already installed on your device!')
+  } else if (pwa.isInstallable.value) {
+    pwa.install()
+  } else {
+    // Show instructions for manual installation (especially for iOS)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    if (isIOS) {
+      alert('To install on iOS:\n1. Tap the Share button\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" to confirm')
+    } else {
+      alert('Installation is not available on this browser. Please use Chrome, Edge, or Safari for the best experience.')
+    }
+  }
+}
+
 const userMenuOptions = [
   {
     label: 'My Profile',
@@ -197,6 +215,11 @@ const userMenuOptions = [
     label: 'Subscription',
     icon: 'zap',
     onClick: () => router.push('/subscription')
+  },
+  {
+    label: 'Install App',
+    icon: 'download',
+    onClick: handleInstallApp
   },
   {
     label: 'Logout',
