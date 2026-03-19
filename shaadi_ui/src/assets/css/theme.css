@@ -1,0 +1,318 @@
+/* Shaadi App - Modern Dashboard Theme */
+/* Inspired by Nuxt UI Dashboard Template */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap');
+
+/* ============================================
+   DESIGN TOKENS - OKLCH Color Space
+   ============================================ */
+
+:root {
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Poppins', 'Inter', sans-serif;
+  
+  /* Pink Primary Colors (Matrimonial Theme) */
+  --color-primary-50: oklch(96% 0.02 350);
+  --color-primary-100: oklch(93% 0.04 350);
+  --color-primary-200: oklch(87% 0.08 350);
+  --color-primary-300: oklch(80% 0.12 350);
+  --color-primary-400: oklch(72% 0.16 350);
+  --color-primary-500: oklch(64% 0.20 350);    /* #EC4899 equivalent */
+  --color-primary-600: oklch(56% 0.18 350);
+  --color-primary-700: oklch(48% 0.15 350);
+  --color-primary-800: oklch(38% 0.12 350);
+  --color-primary-900: oklch(28% 0.08 350);
+  
+  /* Purple Secondary Colors */
+  --color-secondary-50: oklch(95% 0.02 300);
+  --color-secondary-100: oklch(92% 0.04 300);
+  --color-secondary-200: oklch(86% 0.08 300);
+  --color-secondary-300: oklch(78% 0.12 300);
+  --color-secondary-400: oklch(70% 0.16 300);
+  --color-secondary-500: oklch(58% 0.20 300);  /* #9333EA equivalent */
+  --color-secondary-600: oklch(50% 0.18 300);
+  --color-secondary-700: oklch(42% 0.15 300);
+  --color-secondary-800: oklch(34% 0.12 300);
+  --color-secondary-900: oklch(26% 0.08 300);
+  
+  /* Neutral Grays */
+  --color-gray-50: oklch(98% 0 0);
+  --color-gray-100: oklch(96% 0 0);
+  --color-gray-200: oklch(92% 0 0);
+  --color-gray-300: oklch(85% 0 0);
+  --color-gray-400: oklch(70% 0 0);
+  --color-gray-500: oklch(55% 0 0);
+  --color-gray-600: oklch(45% 0 0);
+  --color-gray-700: oklch(35% 0 0);
+  --color-gray-800: oklch(25% 0 0);
+  --color-gray-900: oklch(15% 0 0);
+  
+  /* Success Colors */
+  --color-success-50: oklch(95% 0.02 145);
+  --color-success-500: oklch(65% 0.15 145);
+  --color-success-600: oklch(55% 0.13 145);
+  
+  /* Error Colors */
+  --color-error-50: oklch(95% 0.02 25);
+  --color-error-500: oklch(60% 0.20 25);
+  --color-error-600: oklch(50% 0.18 25);
+  
+  /* Warning Colors */
+  --color-warning-50: oklch(95% 0.02 85);
+  --color-warning-500: oklch(75% 0.15 85);
+  --color-warning-600: oklch(65% 0.13 85);
+  
+  /* Semantic Colors */
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(15% 0 0);
+  --color-muted: oklch(55% 0 0);
+  --color-border: oklch(92% 0 0);
+  --color-elevated: oklch(98% 0 0);
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;    /* 6px */
+  --radius-md: 0.5rem;      /* 8px */
+  --radius-lg: 0.75rem;     /* 12px */
+  --radius-xl: 1rem;        /* 16px */
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+
+.dark {
+  --color-background: oklch(15% 0 0);
+  --color-foreground: oklch(98% 0 0);
+  --color-muted: oklch(70% 0 0);
+  --color-border: oklch(25% 0 0);
+  --color-elevated: oklch(20% 0 0);
+  
+  /* Adjust primary colors for dark mode */
+  --color-primary-500: oklch(68% 0.20 350);
+  --color-secondary-500: oklch(62% 0.20 300);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Gradient Backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-secondary-500) 100%);
+}
+
+.bg-gradient-primary-soft {
+  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-secondary-50) 100%);
+}
+
+/* Text Gradients */
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-secondary-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Elevated Surface */
+.surface-elevated {
+  background-color: var(--color-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Focus Rings */
+.focus-ring {
+  outline: none;
+  transition: box-shadow var(--transition-fast);
+}
+
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-primary-200);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-400);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-gray-800);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/* ============================================
+   ANIMATION KEYFRAMES
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Animation Utility Classes */
+.animate-fade-in {
+  animation: fadeIn var(--transition-base);
+}
+
+.animate-slide-in-up {
+  animation: slideInUp var(--transition-base);
+}
+
+.animate-slide-in-right {
+  animation: slideInRight var(--transition-base);
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 640px) {
+  :root {
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

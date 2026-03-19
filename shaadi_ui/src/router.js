@@ -42,6 +42,12 @@ const routes = [
 		meta: { requiresAuth: true }
 	},
 	{
+		path: "/dashboard-modern",
+		name: "DashboardModern",
+		component: () => import("@/pages/DashboardModern.vue"),
+		meta: { requiresAuth: true }
+	},
+	{
 		path: "/browse",
 		name: "Browse",
 		component: () => import("@/pages/Browse.vue"),

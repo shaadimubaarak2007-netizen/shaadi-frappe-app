@@ -4,6 +4,7 @@ import { FrappeUI } from "frappe-ui"
 import App from "./App.vue"
 import router from "./router"
 import { initSocket } from "./socket"
+import "./assets/css/theme.css"
 import "./index.css"
 
 import {
@@ -22,6 +23,9 @@ import {
 	setConfig,
 } from "frappe-ui"
 
+import StatsCard from "./components/StatsCard.vue"
+import DashboardLayout from "./components/DashboardLayout.vue"
+
 const globalComponents = {
 	Button,
 	Card,
@@ -32,6 +36,8 @@ const globalComponents = {
 	Dialog,
 	Alert,
 	Badge,
+	StatsCard,
+	DashboardLayout,
 }
 
 const app = createApp(App)
