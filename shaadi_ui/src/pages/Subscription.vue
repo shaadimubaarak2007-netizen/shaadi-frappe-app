@@ -1,47 +1,47 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+  <div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-shaadi-dk-base dark:via-shaadi-dk-surface dark:to-shaadi-dk-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">Choose Your Perfect Plan</h1>
-        <p class="text-lg text-gray-600">Find your life partner with the right subscription</p>
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Choose Your Perfect Plan</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">Find your life partner with the right subscription</p>
       </div>
 
       <!-- Current Subscription (if exists) -->
-      <Card v-if="currentSubscription" class="mb-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+      <Card v-if="currentSubscription" class="mb-8 bg-gradient-to-r from-purple-600 to-pink-600 dark:from-shaadi-dk-raised dark:to-shaadi-dk-overlay text-white dark:border dark:border-shaadi">
         <div class="flex items-center justify-between">
           <div>
             <h2 class="text-2xl font-bold mb-2">{{ currentSubscription.plan_details?.plan_name || 'Current Plan' }}</h2>
-            <p class="text-purple-100">{{ currentSubscription.days_remaining }} days remaining</p>
+            <p class="text-purple-100 dark:text-gray-400">{{ currentSubscription.days_remaining }} days remaining</p>
           </div>
           <div class="text-right">
             <div class="text-3xl font-bold">{{ currentSubscription.messages_remaining }}/{{ currentSubscription.plan_details?.messages_allowed }}</div>
-            <p class="text-purple-100">Messages Left Today</p>
+            <p class="text-purple-100 dark:text-gray-400">Messages Left Today</p>
           </div>
         </div>
         <div class="mt-4 grid grid-cols-2 gap-4">
-          <div class="bg-white/20 rounded-lg p-3">
+          <div class="bg-white/20 dark:bg-black/30 rounded-lg p-3">
             <div class="text-2xl font-bold">{{ currentSubscription.contacts_remaining }}</div>
-            <div class="text-sm text-purple-100">Contacts Remaining</div>
+            <div class="text-sm text-purple-100 dark:text-gray-400">Contacts Remaining</div>
           </div>
-          <div class="bg-white/20 rounded-lg p-3">
+          <div class="bg-white/20 dark:bg-black/30 rounded-lg p-3">
             <div class="text-2xl font-bold">{{ formatDate(currentSubscription.end_date) }}</div>
-            <div class="text-sm text-purple-100">Expires On</div>
+            <div class="text-sm text-purple-100 dark:text-gray-400">Expires On</div>
           </div>
         </div>
       </Card>
 
       <!-- No Subscription Alert -->
-      <Card v-else-if="!loadingSubscription" class="mb-8 bg-yellow-50 border-yellow-200">
+      <Card v-else-if="!loadingSubscription" class="mb-8 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800">
         <div class="flex items-start gap-4">
           <div class="flex-shrink-0">
-            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-yellow-900 mb-1">No Active Subscription</h3>
-            <p class="text-yellow-700">You're currently on the Free plan with limited access. Upgrade to unlock messaging, contact details, and more!</p>
+            <h3 class="text-lg font-semibold text-yellow-900 dark:text-yellow-200 mb-1">No Active Subscription</h3>
+            <p class="text-yellow-700 dark:text-yellow-300">You're currently on the Free plan with limited access. Upgrade to unlock messaging, contact details, and more!</p>
           </div>
         </div>
       </Card>
@@ -52,9 +52,9 @@
           v-for="plan in plans" 
           :key="plan.name"
           :class="[
-            'relative overflow-hidden transition-all hover:shadow-xl',
+            'relative overflow-hidden transition-all hover:shadow-xl bg-shaadi-surface border-shaadi',
             plan.plan_type === 'Gold' ? 'ring-2 ring-purple-500 transform scale-105' : '',
-            isCurrentPlan(plan) ? 'bg-purple-50 border-purple-300' : ''
+            isCurrentPlan(plan) ? 'bg-purple-50 dark:bg-purple-900/20 border-purple-300 dark:border-purple-700' : ''
           ]"
         >
           <!-- Popular Badge -->
@@ -68,10 +68,10 @@
           </div>
 
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.plan_name }}</h3>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.plan_name }}</h3>
             <div class="flex items-baseline justify-center gap-2">
-              <span class="text-4xl font-bold text-purple-600">₹{{ plan.price_inr }}</span>
-              <span class="text-gray-500">/ {{ plan.duration_days }} days</span>
+              <span class="text-4xl font-bold text-purple-600 dark:text-purple-400">₹{{ plan.price_inr }}</span>
+              <span class="text-gray-500 dark:text-gray-400">/ {{ plan.duration_days }} days</span>
             </div>
           </div>
 
@@ -81,37 +81,37 @@
               <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>{{ plan.contacts_allowed }} Contact Views</span>
+              <span class="text-gray-700 dark:text-gray-300">{{ plan.contacts_allowed }} Contact Views</span>
             </div>
             <div class="flex items-center gap-2 text-sm">
               <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>{{ plan.messages_allowed }} Messages/Day</span>
+              <span class="text-gray-700 dark:text-gray-300">{{ plan.messages_allowed }} Messages/Day</span>
             </div>
             <div class="flex items-center gap-2 text-sm">
               <svg :class="plan.can_send_message ? 'text-green-500' : 'text-gray-300'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span :class="!plan.can_send_message ? 'text-gray-400 line-through' : ''">Send Messages</span>
+              <span :class="!plan.can_send_message ? 'text-gray-400 dark:text-gray-600 line-through' : 'text-gray-700 dark:text-gray-300'">Send Messages</span>
             </div>
             <div class="flex items-center gap-2 text-sm">
               <svg :class="plan.can_view_contact ? 'text-green-500' : 'text-gray-300'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span :class="!plan.can_view_contact ? 'text-gray-400 line-through' : ''">View Contact Details</span>
+              <span :class="!plan.can_view_contact ? 'text-gray-400 dark:text-gray-600 line-through' : 'text-gray-700 dark:text-gray-300'">View Contact Details</span>
             </div>
             <div class="flex items-center gap-2 text-sm">
               <svg :class="plan.can_see_all_photos ? 'text-green-500' : 'text-gray-300'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span :class="!plan.can_see_all_photos ? 'text-gray-400 line-through' : ''">View All Photos</span>
+              <span :class="!plan.can_see_all_photos ? 'text-gray-400 dark:text-gray-600 line-through' : 'text-gray-700 dark:text-gray-300'">View All Photos</span>
             </div>
             <div class="flex items-center gap-2 text-sm">
               <svg :class="plan.featured_profile ? 'text-green-500' : 'text-gray-300'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span :class="!plan.featured_profile ? 'text-gray-400 line-through' : ''">Featured Profile</span>
+              <span :class="!plan.featured_profile ? 'text-gray-400 dark:text-gray-600 line-through' : 'text-gray-700 dark:text-gray-300'">Featured Profile</span>
             </div>
           </div>
 
@@ -130,27 +130,27 @@
               Choose {{ plan.plan_name }}
             </template>
           </Button>
-          <div v-else class="text-center text-green-600 font-semibold py-2">
+          <div v-else class="text-center text-green-600 dark:text-green-400 font-semibold py-2">
             ✓ Active Plan
           </div>
         </Card>
       </div>
 
       <!-- FAQ Section -->
-      <Card class="bg-white">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <Card class="bg-shaadi-surface border-shaadi">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <div>
-            <h3 class="font-semibold text-gray-900 mb-2">How does messaging work?</h3>
-            <p class="text-gray-600">With a paid subscription, you can send messages to other members. Free users cannot send messages but can receive them.</p>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-2">How does messaging work?</h3>
+            <p class="text-gray-600 dark:text-gray-400">With a paid subscription, you can send messages to other members. Free users cannot send messages but can receive them.</p>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 mb-2">What happens when my subscription expires?</h3>
-            <p class="text-gray-600">Your account will revert to the Free plan. You'll lose access to premium features but your data remains safe.</p>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-2">What happens when my subscription expires?</h3>
+            <p class="text-gray-600 dark:text-gray-400">Your account will revert to the Free plan. You'll lose access to premium features but your data remains safe.</p>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 mb-2">Can I upgrade my plan?</h3>
-            <p class="text-gray-600">Yes! You can upgrade to a higher plan at any time. Contact support for assistance.</p>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Can I upgrade my plan?</h3>
+            <p class="text-gray-600 dark:text-gray-400">Yes! You can upgrade to a higher plan at any time. Contact support for assistance.</p>
           </div>
         </div>
       </Card>
@@ -164,21 +164,21 @@
       <template #body-content>
         <div v-if="selectedPlan" class="space-y-4">
           <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ selectedPlan.plan_name }}</h3>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ selectedPlan.plan_name }}</h3>
             <div class="text-4xl font-bold text-purple-600 mb-4">₹{{ selectedPlan.price_inr }}</div>
           </div>
           
-          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+          <div class="bg-shaadi-raised dark:bg-shaadi-dk-raised rounded-lg p-4 space-y-2">
             <div class="flex justify-between text-sm">
-              <span class="text-gray-600">Duration</span>
+              <span class="text-gray-600 dark:text-gray-400">Duration</span>
               <span class="font-medium">{{ selectedPlan.duration_days }} days</span>
             </div>
             <div class="flex justify-between text-sm">
-              <span class="text-gray-600">Messages Allowed</span>
+              <span class="text-gray-600 dark:text-gray-400">Messages Allowed</span>
               <span class="font-medium">{{ selectedPlan.messages_allowed }} per day</span>
             </div>
             <div class="flex justify-between text-sm">
-              <span class="text-gray-600">Contact Views</span>
+              <span class="text-gray-600 dark:text-gray-400">Contact Views</span>
               <span class="font-medium">{{ selectedPlan.contacts_allowed }}</span>
             </div>
           </div>
@@ -213,20 +213,20 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Payment Successful!</h3>
-            <p class="text-gray-600 mb-4">Your subscription has been activated successfully.</p>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Payment Successful!</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Your subscription has been activated successfully.</p>
             
-            <div class="bg-gray-50 rounded-lg p-4 text-left space-y-2">
+            <div class="bg-shaadi-raised dark:bg-shaadi-dk-raised rounded-lg p-4 text-left space-y-2">
               <div class="flex justify-between text-sm">
-                <span class="text-gray-600">Transaction ID</span>
+                <span class="text-gray-600 dark:text-gray-400">Transaction ID</span>
                 <span class="font-medium">{{ paymentResult.transactionId }}</span>
               </div>
               <div v-if="paymentResult.transaction" class="flex justify-between text-sm">
-                <span class="text-gray-600">Amount Paid</span>
+                <span class="text-gray-600 dark:text-gray-400">Amount Paid</span>
                 <span class="font-medium">₹{{ paymentResult.transaction.amount }}</span>
               </div>
               <div v-if="paymentResult.transaction?.razorpay_payment_id" class="flex justify-between text-sm">
-                <span class="text-gray-600">Payment ID</span>
+                <span class="text-gray-600 dark:text-gray-400">Payment ID</span>
                 <span class="font-medium text-xs">{{ paymentResult.transaction.razorpay_payment_id }}</span>
               </div>
             </div>
@@ -239,18 +239,18 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Payment Failed</h3>
-            <p class="text-gray-600 mb-4">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Payment Failed</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
               {{ paymentResult.error || 'Your payment could not be processed. Please try again.' }}
             </p>
             
-            <div class="bg-gray-50 rounded-lg p-4 text-left space-y-2">
+            <div class="bg-shaadi-raised dark:bg-shaadi-dk-raised rounded-lg p-4 text-left space-y-2">
               <div class="flex justify-between text-sm">
-                <span class="text-gray-600">Transaction ID</span>
+                <span class="text-gray-600 dark:text-gray-400">Transaction ID</span>
                 <span class="font-medium">{{ paymentResult.transactionId }}</span>
               </div>
               <div v-if="paymentResult.transaction?.error_message" class="text-sm">
-                <span class="text-gray-600">Error</span>
+                <span class="text-gray-600 dark:text-gray-400">Error</span>
                 <p class="text-red-600 mt-1">{{ paymentResult.transaction.error_message }}</p>
               </div>
             </div>

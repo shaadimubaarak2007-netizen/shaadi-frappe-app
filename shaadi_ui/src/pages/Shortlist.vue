@@ -1,20 +1,20 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-shaadi-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="flex items-center justify-between mb-8">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900">My Shortlist</h1>
-          <p class="text-gray-600 mt-1">Profiles you've saved for later</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">My Shortlist</h1>
+          <p class="text-gray-600 dark:text-gray-400 mt-1">Profiles you've saved for later</p>
         </div>
         <div class="flex items-center space-x-2">
-          <span class="text-sm text-gray-600">{{ shortlistedProfiles.length }} profiles</span>
+          <span class="text-sm text-gray-600 dark:text-gray-400">{{ shortlistedProfiles.length }} profiles</span>
         </div>
       </div>
 
       <!-- Category Tabs -->
       <div class="mb-6">
-        <div class="flex items-center space-x-2 border-b border-gray-200">
+        <div class="flex items-center space-x-2 border-b border-shaadi">
           <button
             v-for="category in categories"
             :key="category.value"
@@ -22,12 +22,12 @@
             :class="[
               'px-4 py-3 text-sm font-medium border-b-2 transition-colors',
               activeCategory === category.value
-                ? 'border-pink-600 text-pink-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                ? 'border-pink-600 text-pink-600 dark:border-pink-500 dark:text-pink-500'
+                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600'
             ]"
           >
             {{ category.label }}
-            <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-gray-100">
+            <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-shaadi-dk-overlay text-gray-600 dark:text-gray-300">
               {{ getCategoryCount(category.value) }}
             </span>
           </button>
@@ -36,10 +36,10 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card v-for="i in 6" :key="i" class="animate-pulse">
-          <div class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-          <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+        <Card v-for="i in 6" :key="i" class="animate-pulse bg-shaadi-surface border-shaadi">
+          <div class="h-48 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg mb-4"></div>
+          <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-3/4 mb-2"></div>
+          <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
         </Card>
       </div>
 
@@ -55,25 +55,25 @@
           <!-- Remove Button -->
           <button
             @click="removeFromShortlist(item.name)"
-            class="absolute top-2 right-2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50 transition-colors z-10"
+            class="absolute top-2 right-2 w-8 h-8 bg-white dark:bg-shaadi-dk-raised rounded-full shadow-lg flex items-center justify-center hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors z-10"
           >
             <FeatherIcon name="x" class="w-4 h-4 text-red-600" />
           </button>
           <!-- Category Badge -->
-          <div class="absolute top-2 left-2 px-2 py-1 bg-white rounded-full shadow-sm text-xs font-medium z-10">
+          <div class="absolute top-2 left-2 px-2 py-1 bg-white dark:bg-shaadi-dk-raised text-gray-700 dark:text-gray-200 rounded-full shadow-sm text-xs font-medium z-10">
             {{ item.category }}
           </div>
         </div>
       </div>
 
       <!-- Empty State -->
-      <Card v-else class="text-center py-12">
+      <Card v-else class="text-center py-12 bg-shaadi-surface border-shaadi">
         <div class="flex flex-col items-center">
-          <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-            <FeatherIcon name="star" class="w-8 h-8 text-gray-400" />
+          <div class="w-16 h-16 bg-gray-100 dark:bg-shaadi-dk-raised rounded-full flex items-center justify-center mb-4">
+            <FeatherIcon name="star" class="w-8 h-8 text-gray-400 dark:text-gray-500" />
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">No profiles in shortlist</h3>
-          <p class="text-gray-600 mb-6">Start adding profiles you're interested in</p>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No profiles in shortlist</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">Start adding profiles you're interested in</p>
           <Button variant="solid" @click="$router.push('/browse')">
             <template #prefix>
               <FeatherIcon name="search" class="w-4 h-4" />

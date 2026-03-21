@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-shaadi-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Browse Profiles</h1>
-        <p class="text-gray-600 mt-1">Discover your perfect match</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Browse Profiles</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Discover your perfect match</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -35,7 +35,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-              <span class="text-sm text-gray-600">Sort by:</span>
+              <span class="text-sm text-gray-600 dark:text-gray-400">Sort by:</span>
               <FormControl
                 type="select"
                 v-model="sortBy"
@@ -53,10 +53,10 @@
 
           <!-- Loading State -->
           <div v-if="loading" :class="viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6' : 'space-y-4'">
-            <Card v-for="i in 6" :key="i" class="animate-pulse">
-              <div class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-              <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-              <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+            <Card v-for="i in 6" :key="i" class="animate-pulse bg-shaadi-surface border-shaadi">
+              <div class="h-48 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg mb-4"></div>
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+              <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
             </Card>
           </div>
 
@@ -77,7 +77,7 @@
             <Card 
               v-for="profile in profiles" 
               :key="profile.name"
-              class="hover:shadow-lg transition-shadow cursor-pointer"
+              class="flex items-start gap-4 p-4 hover:shadow-md transition-shadow bg-shaadi-surface border-shaadi rounded-xl"
               @click="viewProfile(profile)"
             >
               <div class="flex gap-6">
@@ -100,13 +100,13 @@
                   <div class="flex items-start justify-between">
                     <div>
                       <div class="flex items-center gap-2 mb-1">
-                        <h3 class="text-xl font-semibold text-gray-900">{{ profile.full_name }}</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ profile.full_name }}</h3>
                         <span v-if="profile.is_online" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                           <div class="w-2 h-2 bg-green-400 rounded-full mr-1"></div>
                           Online
                         </span>
                       </div>
-                      <div class="text-sm text-gray-600 mt-1 space-y-1">
+                      <div class="text-sm text-gray-600 dark:text-gray-300 mt-1 space-y-1">
                         <div>{{ profile.age }} years • {{ formatHeight(profile.height_cm) }}</div>
                         <div>{{ profile.education }}</div>
                         <div>{{ profile.occupation }}</div>
@@ -116,7 +116,7 @@
                           </svg>
                           {{ profile.city }}, {{ profile.state }}
                         </div>
-                        <div v-if="!profile.is_online" class="text-xs text-gray-400">
+                        <div v-if="!profile.is_online" class="text-xs text-gray-500 dark:text-gray-400">
                           {{ profile.status_text || 'Offline' }}
                         </div>
                       </div>
@@ -179,12 +179,12 @@
           </div>
 
           <!-- Empty State -->
-          <Card v-else class="text-center py-12">
-            <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <Card v-else class="text-center py-12 bg-shaadi-surface border-shaadi rounded-xl">
+            <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            <p class="text-gray-500 text-lg">No profiles found</p>
-            <p class="text-gray-400 text-sm mt-1">Try adjusting your filters</p>
+            <p class="text-gray-500 dark:text-gray-400 text-lg">No profiles found</p>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">Try adjusting your filters</p>
           </Card>
 
           <!-- Load More -->

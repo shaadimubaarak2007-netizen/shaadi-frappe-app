@@ -1,16 +1,18 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-12rem)]">
+  <div class="min-h-screen bg-shaadi-base">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-10rem)]">
         <!-- Conversations List -->
-        <Card class="lg:col-span-1 overflow-hidden flex flex-col">
-          <div class="p-4 border-b border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-900">Messages</h2>
-            <div class="mt-3">
+        <Card class="lg:col-span-1 overflow-hidden flex flex-col shadow-sm bg-shaadi-surface border-shaadi">
+          <div class="p-5 border-b border-shaadi bg-shaadi-surface">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Messages</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ conversations.length }} conversation{{ conversations.length !== 1 ? 's' : '' }}</p>
+            <div class="mt-4">
               <Input
                 v-model="searchQuery"
                 type="text"
                 placeholder="Search conversations..."
+                class="w-full"
               >
                 <template #prefix>
                   <FeatherIcon name="search" class="w-4 h-4 text-gray-400" />
@@ -23,42 +25,49 @@
           <div class="flex-1 overflow-y-auto">
             <div v-if="loadingConversations" class="p-4 space-y-3">
               <div v-for="i in 5" :key="i" class="animate-pulse flex items-center space-x-3">
-                <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                <div class="w-12 h-12 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-full"></div>
                 <div class="flex-1">
-                  <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                  <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-3/4 mb-2"></div>
+                  <div class="h-3 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
                 </div>
               </div>
             </div>
 
-            <div v-else-if="filteredConversations.length > 0" class="divide-y divide-gray-200">
+            <div v-else-if="filteredConversations.length > 0" class="divide-y divide-gray-200 dark:divide-gray-800">
               <button
                 v-for="conversation in filteredConversations"
                 :key="conversation.name"
                 @click="selectConversation(conversation)"
                 :class="[
-                  'w-full p-4 flex items-start space-x-3 hover:bg-gray-50 transition-colors text-left',
-                  selectedConversation?.name === conversation.name ? 'bg-pink-50' : ''
-                ]"
+                  'w-full p-4 flex items-start space-x-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 text-left border-l-3',
+                  selectedConversation?.name === conversation.name 
+                    ? 'bg-pink-50 dark:bg-pink-900/20 border-l-pink-500' 
+                    : 'border-l-transparent hover:border-l-gray-300 dark:hover:border-l-gray-600'
+                ]">
               >
-                <div class="relative w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <FeatherIcon name="user" class="w-6 h-6 text-pink-600" />
+                <div class="relative w-14 h-14 bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900 dark:to-purple-900 rounded-full flex items-center justify-center flex-shrink-0 ring-2 ring-white dark:ring-gray-800 shadow-sm">
+                  <FeatherIcon name="user" class="w-7 h-7 text-pink-600 dark:text-pink-400" />
                   <!-- Online Status Indicator -->
-                  <div v-if="conversation.other_participant_online" class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                  <div v-if="conversation.other_participant_online" class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <div class="flex items-center justify-between mb-1">
-                    <div class="flex items-center space-x-2 min-w-0">
-                      <h3 class="text-sm font-semibold text-gray-900 truncate">{{ conversation.other_participant_name || 'Unknown' }}</h3>
-                      <span v-if="conversation.other_participant_online" class="text-xs text-green-600 font-medium">Online</span>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <div class="flex items-center space-x-2 min-w-0 flex-1">
+                      <h3 class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ conversation.other_participant_name || 'Unknown' }}</h3>
+                      <span v-if="conversation.other_participant_online" class="flex items-center text-xs text-green-600 font-medium">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1"></span>
+                        Online
+                      </span>
                     </div>
-                    <span class="text-xs text-gray-500 flex-shrink-0">{{ formatTime(conversation.last_message_on) }}</span>
+                    <span class="text-xs text-gray-400 dark:text-gray-500 flex-shrink-0 ml-2">{{ formatTime(conversation.last_message_on) }}</span>
                   </div>
-                  <p class="text-sm text-gray-600 truncate">{{ conversation.last_message_text || 'No messages yet' }}</p>
-                  <div class="flex items-center justify-between mt-1">
-                    <span v-if="!conversation.other_participant_online" class="text-xs text-gray-400">{{ conversation.other_participant_status || 'Offline' }}</span>
-                    <span v-if="conversation.unread_count > 0" class="inline-block px-2 py-0.5 text-xs font-medium bg-pink-600 text-white rounded-full ml-auto">
-                      {{ conversation.unread_count }}
+                  <div class="flex items-center justify-between">
+                    <p :class="[
+                      'text-sm truncate flex-1',
+                      conversation.unread_count > 0 ? 'text-gray-900 dark:text-white font-medium' : 'text-gray-500 dark:text-gray-400'
+                    ]">{{ conversation.last_message_text || 'No messages yet' }}</p>
+                    <span v-if="conversation.unread_count > 0" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold bg-pink-600 text-white rounded-full ml-2 flex-shrink-0">
+                      {{ conversation.unread_count > 99 ? '99+' : conversation.unread_count }}
                     </span>
                   </div>
                 </div>
@@ -66,105 +75,123 @@
             </div>
 
             <div v-else class="p-8 text-center">
-              <FeatherIcon name="message-circle" class="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p class="text-gray-600">No conversations yet</p>
+              <FeatherIcon name="message-circle" class="w-12 h-12 text-gray-300 dark:text-gray-700 mx-auto mb-3" />
+              <p class="text-gray-600 dark:text-gray-400">No conversations yet</p>
             </div>
           </div>
         </Card>
 
         <!-- Chat Area -->
-        <Card class="lg:col-span-2 overflow-hidden flex flex-col">
-          <div v-if="selectedConversation">
+        <Card class="lg:col-span-2 overflow-hidden flex flex-col shadow-sm bg-shaadi-surface border-shaadi">
+          <div v-if="selectedConversation" class="flex flex-col h-full">
             <!-- Chat Header -->
-            <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div class="p-5 border-b border-shaadi flex items-center justify-between bg-shaadi-surface">
               <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center">
-                  <FeatherIcon name="user" class="w-5 h-5 text-pink-600" />
+                <div class="relative w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900 dark:to-purple-900 rounded-full flex items-center justify-center ring-2 ring-white dark:ring-gray-800 shadow-sm">
+                  <FeatherIcon name="user" class="w-6 h-6 text-pink-600 dark:text-pink-400" />
+                  <div v-if="selectedConversation.other_participant_online" class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
                 <div>
-                  <h3 class="text-sm font-semibold text-gray-900">{{ selectedConversation.other_profile_name }}</h3>
-                  <p class="text-xs text-gray-500">{{ selectedConversation.other_profile_city }}</p>
+                  <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ selectedConversation.other_participant_name }}</h3>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                    <span v-if="selectedConversation.other_participant_online" class="text-green-600 font-medium">Active now</span>
+                    <span v-else>{{ selectedConversation.other_participant_status || 'Offline' }}</span>
+                  </p>
                 </div>
               </div>
-              <Button variant="subtle" size="sm" @click="viewProfile(selectedConversation.other_profile_id)">
-                <template #prefix>
-                  <FeatherIcon name="eye" class="w-4 h-4" />
-                </template>
-                View Profile
-              </Button>
+              <div class="flex items-center gap-2">
+                <Button variant="ghost" size="sm" @click="viewProfile(selectedConversation.other_participant)">
+                  <template #prefix>
+                    <FeatherIcon name="user" class="w-4 h-4" />
+                  </template>
+                  Profile
+                </Button>
+              </div>
             </div>
 
             <!-- Messages -->
-            <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
+            <div ref="messagesContainer" class="flex-1 overflow-y-auto p-6 space-y-1 bg-shaadi-base">
               <div v-if="loadingMessages" class="space-y-3">
                 <div v-for="i in 5" :key="i" class="animate-pulse">
                   <div :class="i % 2 === 0 ? 'flex justify-end' : 'flex justify-start'">
                     <div class="max-w-xs">
-                      <div class="h-16 bg-gray-200 rounded-lg"></div>
+                      <div class="h-16 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg"></div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div v-else-if="messages.length > 0">
+              <div v-else-if="messages.length > 0" class="space-y-4">
                 <div
                   v-for="message in messages"
                   :key="message.name"
                   :class="[
-                    'flex',
+                    'flex items-end gap-2',
                     message.is_own_message ? 'justify-end' : 'justify-start'
                   ]"
                 >
                   <div :class="[
-                    'max-w-xs lg:max-w-md px-4 py-2 rounded-lg',
+                    'max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-sm',
                     message.is_own_message
-                      ? 'bg-pink-600 text-white'
-                      : 'bg-gray-200 text-gray-900'
+                      ? 'bg-gradient-to-br from-pink-500 to-pink-600 text-white rounded-br-md'
+                      : 'bg-shaadi-surface text-gray-900 dark:text-white border border-shaadi rounded-bl-md'
                   ]">
-                    <p class="text-sm">{{ message.message_text }}</p>
-                    <p :class="[
-                      'text-xs mt-1',
-                      message.is_own_message ? 'text-pink-100' : 'text-gray-500'
+                    <p class="text-sm leading-relaxed break-words">{{ message.message_text }}</p>
+                    <div :class="[
+                      'flex items-center gap-1 mt-1.5',
+                      message.is_own_message ? 'justify-end' : 'justify-start'
                     ]">
-                      {{ formatTime(message.sent_on) }}
-                    </p>
+                      <p :class="[
+                        'text-xs',
+                        message.is_own_message ? 'text-pink-100' : 'text-gray-400 dark:text-gray-500'
+                      ]">
+                        {{ formatTime(message.sent_on) }}
+                      </p>
+                      <FeatherIcon 
+                        v-if="message.is_own_message" 
+                        name="check" 
+                        class="w-3 h-3 text-pink-100" 
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div v-else class="text-center py-12">
-                <FeatherIcon name="message-circle" class="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p class="text-gray-600">No messages yet. Start the conversation!</p>
+                <FeatherIcon name="message-circle" class="w-12 h-12 text-gray-300 dark:text-gray-700 mx-auto mb-3" />
+                <p class="text-gray-600 dark:text-gray-400">No messages yet. Start the conversation!</p>
               </div>
               
               <!-- Typing Indicator -->
-              <div v-if="isTyping" class="flex justify-start">
-                <div class="max-w-xs px-4 py-2 rounded-lg bg-gray-200">
-                  <div class="flex space-x-1">
-                    <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                    <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                    <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+              <div v-if="isTyping" class="flex justify-start items-end gap-2">
+                <div class="px-4 py-3 rounded-2xl rounded-bl-md bg-shaadi-surface border border-shaadi shadow-sm">
+                  <div class="flex space-x-1.5">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.15s"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Message Input -->
-            <div class="p-4 border-t border-gray-200">
-              <form @submit.prevent="sendMessage" class="flex items-end space-x-2">
+            <div class="message-input-area px-6 py-4 border-t border-shaadi bg-shaadi-surface">
+              <form @submit.prevent="sendMessage" class="flex items-end gap-3">
                 <div class="flex-1">
                   <Input
                     v-model="newMessage"
                     type="text"
-                    placeholder="Type your message..."
+                    placeholder="Type a message..."
                     :disabled="sendingMessage"
+                    class="w-full rounded-xl !px-4 !py-3 !h-auto"
+                    @input="sendTypingIndicator"
                   />
                 </div>
                 <Button
                   type="submit"
-                  variant="solid"
                   :loading="sendingMessage"
                   :disabled="!newMessage.trim()"
+                  class="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-6"
                 >
                   <template #prefix>
                     <FeatherIcon name="send" class="w-4 h-4" />
@@ -179,8 +206,8 @@
           <div v-else class="flex-1 flex items-center justify-center">
             <div class="text-center">
               <FeatherIcon name="message-square" class="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 class="text-lg font-semibold text-gray-900 mb-2">Select a conversation</h3>
-              <p class="text-gray-600">Choose a conversation from the list to start messaging</p>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Select a conversation</h3>
+              <p class="text-gray-600 dark:text-gray-400">Choose a conversation from the list to start messaging</p>
             </div>
           </div>
         </Card>

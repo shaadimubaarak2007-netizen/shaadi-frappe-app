@@ -4,6 +4,7 @@ import { FrappeUI } from "frappe-ui"
 import App from "./App.vue"
 import router from "./router"
 import { initSocket } from "./socket"
+import { useDarkMode } from "./composables/useDarkMode"
 import "./index.css"
 
 import {

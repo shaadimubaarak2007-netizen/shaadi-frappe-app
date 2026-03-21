@@ -1,2 +1,0 @@
-import{E as a,j as o,k as n,m as s,n as r,p as c,i as d}from"./frappe-ui-BFkBDKMR.js";const l={},x={class:"min-h-screen bg-gray-50"},m={class:"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"};function p(i,e){const t=d("Card");return o(),n("div",x,[s("div",m,[e[1]||(e[1]=s("h1",{class:"text-3xl font-bold text-gray-900 mb-8"},"Advanced Search",-1)),r(t,null,{default:c(()=>[...e[0]||(e[0]=[s("p",{class:"text-gray-600"},"Advanced search page - Coming soon",-1)])]),_:1})])])}const f=a(l,[["render",p]]);export{f as default};
-//# sourceMappingURL=Search-xCw3qtLW.js.map

@@ -1,11 +1,337 @@
 @import "./assets/Inter/inter.css";
 @import "../node_modules/frappe-ui/src/style.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ============================================================
+   Shaadi — Dark Mode Color System
+   Frappe UI + Tailwind CSS v3
+   ============================================================ */
+
+/* ── CSS CUSTOM PROPERTIES ──────────────────────────────── */
+@layer base {
+  :root {
+    /* Brand colors */
+    --shaadi-pink: #EC4899;
+    --shaadi-pink-hover: #BE185D;
+    --shaadi-pink-muted: #FCE7F3;
+    --shaadi-purple: #A855F7;
+    --shaadi-purple-hover: #7E22CE;
+    --shaadi-purple-muted: #F3E8FF;
+
+    /* Backgrounds */
+    --shaadi-bg-base: #FDFAF5;
+    --shaadi-bg-surface: #FFFFFF;
+    --shaadi-bg-raised: #F9FAFB;
+    --shaadi-bg-overlay: #F3F4F6;
+
+    /* Text */
+    --shaadi-text-1: #111827;
+    --shaadi-text-2: #6B7280;
+    --shaadi-text-3: #9CA3AF;
+
+    /* Borders */
+    --shaadi-border: #E5E7EB;
+    --shaadi-border-mid: #D1D5DB;
+
+    /* Frappe UI overrides */
+    --fui-color-brand: #EC4899;
+    --fui-color-brand-light: #FCE7F3;
+    --fui-color-brand-dark: #BE185D;
+  }
+
+  /* Dark mode overrides */
+  .dark {
+    /* Brand colors (lightened for dark bg) */
+    --shaadi-pink: #F472B6;
+    --shaadi-pink-hover: #EC4899;
+    --shaadi-pink-muted: #3D1828;
+    --shaadi-purple: #C084FC;
+    --shaadi-purple-hover: #A855F7;
+    --shaadi-purple-muted: #2E1065;
+
+    /* Backgrounds (warm dark) */
+    --shaadi-bg-base: #0F0A0D;
+    --shaadi-bg-surface: #1A1115;
+    --shaadi-bg-raised: #2A1820;
+    --shaadi-bg-overlay: #33202A;
+
+    /* Text */
+    --shaadi-text-1: #F9FAFB;
+    --shaadi-text-2: #D1D5DB;
+    --shaadi-text-3: #9CA3AF;
+
+    /* Borders */
+    --shaadi-border: #374151;
+    --shaadi-border-mid: #4B5563;
+
+    /* Frappe UI overrides */
+    --fui-color-brand: #F472B6;
+    --fui-color-brand-light: #3D1828;
+    --fui-color-brand-dark: #EC4899;
+  }
+
+  /* Body base styles */
+  body {
+    background-color: var(--shaadi-bg-base);
+    color: var(--shaadi-text-1);
+    transition: background-color 0.3s, color 0.3s;
+  }
+}
+
+/* ── UTILITY CLASSES ──────────────────────────────────── */
+@layer utilities {
+  /* Background utilities */
+  .bg-shaadi-base {
+    background-color: var(--shaadi-bg-base);
+  }
+  
+  .bg-shaadi-surface {
+    background-color: var(--shaadi-bg-surface);
+  }
+  
+  .bg-shaadi-raised {
+    background-color: var(--shaadi-bg-raised);
+  }
+
+  .bg-shaadi-overlay {
+    background-color: var(--shaadi-bg-overlay);
+  }
+
+  /* Alias for Tailwind token classes */
+  .bg-shaadi-dk-base { background-color: #0F0A0D; }
+  .bg-shaadi-dk-surface { background-color: #1A1115; }
+  .bg-shaadi-dk-raised { background-color: #2A1820; }
+  .bg-shaadi-dk-overlay { background-color: #33202A; }
+  
+  /* Text utilities */
+  .text-shaadi-primary {
+    color: var(--shaadi-text-1);
+  }
+  
+  .text-shaadi-secondary {
+    color: var(--shaadi-text-2);
+  }
+  
+  .text-shaadi-tertiary {
+    color: var(--shaadi-text-3);
+  }
+  
+  /* Border utilities */
+  .border-shaadi {
+    border-color: var(--shaadi-border);
+  }
+  
+  .border-shaadi-mid {
+    border-color: var(--shaadi-border-mid);
+  }
+}
+
+/* ── COMPONENT CLASSES ──────────────────────────────────── */
+@layer components {
+  /* Card */
+  .shaadi-card {
+    @apply bg-white dark:bg-shaadi-dk-surface
+           border border-shaadi-border dark:border-shaadi-dk-border
+           rounded-shaadi-lg;
+  }
+
+  /* Primary button */
+  .shaadi-btn-primary {
+    @apply bg-gradient-to-r from-pink-500 to-purple-500
+           dark:from-pink-600 dark:to-purple-600
+           hover:from-pink-600 hover:to-purple-600
+           dark:hover:from-pink-700 dark:hover:to-purple-700
+           text-white font-medium text-sm
+           rounded-shaadi-md px-4 h-9
+           transition-all shadow-sm hover:shadow-md;
+  }
+
+  /* Outline button */
+  .shaadi-btn-outline {
+    @apply bg-transparent
+           text-pink-600 dark:text-pink-400
+           border border-pink-600 dark:border-pink-400
+           hover:bg-pink-50 dark:hover:bg-pink-900/20
+           font-medium text-sm rounded-shaadi-md px-4 h-9
+           transition-colors;
+  }
+
+  /* Input */
+  .shaadi-input {
+    @apply bg-white dark:bg-shaadi-dk-overlay
+           border border-shaadi-border-mid dark:border-shaadi-dk-border-mid
+           text-shaadi-ink dark:text-shaadi-dk-ink
+           placeholder:text-shaadi-hint dark:placeholder:text-shaadi-dk-hint
+           rounded-shaadi-md h-9 px-3 text-sm w-full
+           focus:outline-none
+           focus:border-pink-500 dark:focus:border-pink-400
+           focus:ring-2 focus:ring-pink-500/15 dark:focus:ring-pink-400/20
+           transition;
+  }
+
+  /* Badge */
+  .shaadi-badge {
+    @apply inline-flex items-center gap-1
+           px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+}
+
+/* ── MESSAGE INPUT PADDING OVERRIDE ────────────────────── */
+.message-input-area input[type="text"] {
+  padding: 12px 16px !important;
+  height: auto !important;
+  min-height: 48px !important;
+  line-height: 1.5 !important;
+}
+
+/* ── FRAPPE UI COMPONENT OVERRIDES ──────────────────────── */
 /* Fix Dialog transparency issue */
 .bg-surface-modal {
   background-color: white !important;
 }
 
+.dark .bg-surface-modal {
+  background-color: var(--shaadi-bg-raised) !important;
+}
+
 .dialog-content {
   background-color: white !important;
 }
+
+.dark .dialog-content {
+  background-color: var(--shaadi-bg-raised) !important;
+}
+
+/* ── ALL INPUT ELEMENTS ─────────────────────────────────── */
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="number"],
+.dark input[type="search"],
+.dark input[type="tel"],
+.dark input[type="url"],
+.dark input[type="date"],
+.dark input[type="time"],
+.dark input[type="datetime-local"],
+.dark textarea,
+.dark select {
+  background-color: var(--shaadi-bg-surface) !important;
+  border-color: var(--shaadi-border) !important;
+  color: var(--shaadi-text-1) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--shaadi-text-3) !important;
+  opacity: 1;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: var(--shaadi-pink) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(244, 114, 182, 0.2) !important;
+}
+
+.dark select option {
+  background-color: var(--shaadi-bg-surface);
+  color: var(--shaadi-text-1);
+}
+
+/* ── FRAPPE UI FORM CONTROL OVERRIDES ───────────────────── */
+.dark .form-control label,
+.dark label {
+  color: var(--shaadi-text-2) !important;
+}
+
+/* Frappe UI input wrapper */
+.dark [class*="input-"],
+.dark .frappe-control input,
+.dark .frappe-control textarea,
+.dark .frappe-control select {
+  background-color: var(--shaadi-bg-surface) !important;
+  border-color: var(--shaadi-border) !important;
+  color: var(--shaadi-text-1) !important;
+}
+
+/* ── FRAPPE UI CARD OVERRIDES ───────────────────────────── */
+.dark .card,
+.dark [class*="card"] {
+  background-color: var(--shaadi-bg-surface);
+  border-color: var(--shaadi-border);
+}
+
+/* ── PAGE SECTION HEADINGS ──────────────────────────────── */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: var(--shaadi-text-1);
+}
+
+.dark p {
+  color: var(--shaadi-text-2);
+}
+
+/* ── BORDER SEPARATORS ──────────────────────────────────── */
+.dark hr,
+.dark .border-b,
+.dark .border-t,
+.dark .border-l,
+.dark .border-r {
+  border-color: var(--shaadi-border);
+}
+
+/* ── FRAPPE UI DROPDOWN OVERRIDES ───────────────────────── */
+.dark .dropdown-list,
+.dark [class*="dropdown"] .list,
+.dark .popover-content {
+  background-color: var(--shaadi-bg-raised) !important;
+  border-color: var(--shaadi-border) !important;
+}
+
+.dark .dropdown-item:hover,
+.dark [class*="dropdown"] .list-item:hover {
+  background-color: var(--shaadi-bg-overlay) !important;
+}
+
+/* ── FRAPPE UI BADGE/TAG ────────────────────────────────── */
+.dark .badge {
+  background-color: var(--shaadi-bg-overlay);
+  color: var(--shaadi-text-1);
+}
+
+/* ── SCROLLBAR STYLING ──────────────────────────────────── */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--shaadi-bg-base);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--shaadi-border-mid);
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--shaadi-pink);
+}
+
+/* ── STATUS BADGE DARK MODE FIXES ───────────────────────── */
+.dark .bg-green-100 { background-color: rgba(34, 197, 94, 0.15) !important; }
+.dark .text-green-700, .dark .text-green-800 { color: #86efac !important; }
+.dark .bg-red-100 { background-color: rgba(239, 68, 68, 0.15) !important; }
+.dark .text-red-700, .dark .text-red-800 { color: #fca5a5 !important; }
+.dark .bg-yellow-100 { background-color: rgba(234, 179, 8, 0.15) !important; }
+.dark .text-yellow-700, .dark .text-yellow-800 { color: #fde047 !important; }
+.dark .bg-blue-100 { background-color: rgba(59, 130, 246, 0.15) !important; }
+.dark .text-blue-700, .dark .text-blue-800 { color: #93c5fd !important; }
+.dark .bg-purple-100 { background-color: rgba(168, 85, 247, 0.15) !important; }
+.dark .text-purple-700, .dark .text-purple-800 { color: #d8b4fe !important; }
+.dark .bg-gray-100 { background-color: var(--shaadi-bg-raised) !important; }
+.dark .text-gray-700 { color: var(--shaadi-text-2) !important; }
+.dark .bg-pink-100 { background-color: rgba(236, 72, 153, 0.15) !important; }
+.dark .text-pink-700 { color: #f9a8d4 !important; }

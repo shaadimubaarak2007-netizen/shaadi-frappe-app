@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-shaadi-dk-base dark:via-shaadi-dk-surface dark:to-shaadi-dk-base">
     <!-- Background Pattern -->
     <div class="absolute inset-0 overflow-hidden">
       <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full opacity-10 blur-3xl"></div>
@@ -15,12 +15,12 @@
               <FeatherIcon name="heart" class="w-8 h-8 text-white" />
             </div>
           </router-link>
-          <h2 class="text-3xl font-bold text-gray-900 mb-2">Forgot Password?</h2>
-          <p class="text-gray-600">Enter your email address and we'll send you instructions to reset your password</p>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Forgot Password?</h2>
+          <p class="text-gray-600 dark:text-gray-400">Enter your email address and we'll send you instructions to reset your password</p>
         </div>
 
         <!-- Reset Form -->
-        <Card class="p-8">
+        <Card class="p-8 bg-shaadi-surface border-shaadi">
           <form class="space-y-6" @submit.prevent="handleSubmit">
             <FormControl
               v-model="email"
@@ -63,8 +63,8 @@
           </form>
 
           <!-- Back to Login Link -->
-          <div class="mt-6 pt-6 border-t border-gray-200 text-center">
-            <p class="text-sm text-gray-600">
+          <div class="mt-6 pt-6 border-t border-shaadi text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
               Remember your password?
               <router-link to="/signin" class="font-semibold text-pink-600 hover:text-pink-500 transition-colors">
                 Sign in

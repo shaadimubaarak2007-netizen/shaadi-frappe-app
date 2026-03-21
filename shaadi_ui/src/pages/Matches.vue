@@ -1,24 +1,24 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+  <div class="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-shaadi-dk-base dark:to-shaadi-dk-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="text-center mb-8">
         <h1 class="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
           Discover Your Match
         </h1>
-        <p class="text-gray-600 mt-2">Swipe right to like, left to pass</p>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Swipe right to like, left to pass</p>
       </div>
 
       <!-- Mode Toggle -->
       <div class="flex justify-center mb-8">
-        <div class="bg-white rounded-full p-1 shadow-lg">
+        <div class="bg-shaadi-surface rounded-full p-1 shadow-lg">
           <button
             @click="viewMode = 'swipe'"
             :class="[
               'px-6 py-2 rounded-full text-sm font-medium transition-all',
               viewMode === 'swipe'
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             ]"
           >
             <FeatherIcon name="heart" class="w-4 h-4 inline mr-2" />
@@ -30,7 +30,7 @@
               'px-6 py-2 rounded-full text-sm font-medium transition-all',
               viewMode === 'grid'
                 ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             ]"
           >
             <FeatherIcon name="users" class="w-4 h-4 inline mr-2" />
@@ -53,16 +53,16 @@
       <div v-else>
         <!-- Header -->
         <div class="mb-6 text-center">
-          <h2 class="text-2xl font-bold text-gray-900">My Mutual Matches</h2>
-          <p class="text-gray-600 mt-1">Profiles where both of you liked each other</p>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">My Mutual Matches</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-1">Profiles where both of you liked each other</p>
         </div>
 
         <!-- Loading State -->
         <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card v-for="i in 6" :key="i" class="animate-pulse">
-            <div class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+          <Card v-for="i in 6" :key="i" class="animate-pulse bg-shaadi-surface border-shaadi">
+            <div class="h-48 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg mb-4"></div>
+            <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
           </Card>
         </div>
 
@@ -81,11 +81,11 @@
         <!-- Empty State -->
         <Card v-else class="text-center py-12">
           <div class="flex flex-col items-center">
-            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <div class="w-16 h-16 bg-gray-100 dark:bg-shaadi-dk-raised rounded-full flex items-center justify-center mb-4">
               <FeatherIcon name="heart" class="w-8 h-8 text-gray-400" />
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">No mutual matches yet</h3>
-            <p class="text-gray-600 mb-6">Start swiping to find your perfect match!</p>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No mutual matches yet</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Start swiping to find your perfect match!</p>
             <Button variant="solid" @click="viewMode = 'swipe'">
               <template #prefix>
                 <FeatherIcon name="heart" class="w-4 h-4" />
@@ -108,18 +108,18 @@
 
       <!-- Stats Bar -->
       <div v-if="viewMode === 'swipe'" class="fixed bottom-4 left-1/2 transform -translate-x-1/2">
-        <div class="bg-white rounded-full px-6 py-3 shadow-lg flex items-center gap-4">
+        <div class="bg-shaadi-surface border border-shaadi rounded-full px-6 py-3 shadow-lg flex items-center gap-4">
           <div class="flex items-center gap-2">
             <div class="w-3 h-3 bg-red-400 rounded-full"></div>
-            <span class="text-sm text-gray-600">{{ passCount }} passed</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{ passCount }} passed</span>
           </div>
           <div class="flex items-center gap-2">
             <div class="w-3 h-3 bg-green-400 rounded-full"></div>
-            <span class="text-sm text-gray-600">{{ likeCount }} liked</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{ likeCount }} liked</span>
           </div>
           <div class="flex items-center gap-2">
             <div class="w-3 h-3 bg-pink-400 rounded-full"></div>
-            <span class="text-sm text-gray-600">{{ matchCount }} matches</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{ matchCount }} matches</span>
           </div>
         </div>
       </div>

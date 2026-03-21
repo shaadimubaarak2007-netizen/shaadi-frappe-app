@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-shaadi-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Welcome back, {{ userProfile?.full_name }}!</h1>
-        <p class="text-gray-600 mt-1">Find your perfect match today</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Welcome back, {{ userProfile?.full_name }}!</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Find your perfect match today</p>
       </div>
 
       <!-- Stats Cards -->
@@ -68,12 +68,12 @@
       </div>
 
       <!-- Profile Completion -->
-      <Card v-if="userProfile && userProfile.profile_completeness < 100" class="mb-8 bg-yellow-50 border-yellow-200">
+      <Card v-if="userProfile && userProfile.profile_completeness < 100" class="mb-8 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800">
         <div class="flex items-center justify-between">
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Complete Your Profile</h3>
-            <p class="text-gray-600 text-sm mb-3">{{ userProfile.profile_completeness }}% complete - Add more details to get better matches!</p>
-            <div class="w-full bg-gray-200 rounded-full h-2">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Complete Your Profile</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">{{ userProfile.profile_completeness }}% complete - Add more details to get better matches!</p>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div 
                 class="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all duration-500"
                 :style="{ width: `${userProfile.profile_completeness}%` }"
@@ -92,17 +92,17 @@
           <!-- Top Matches -->
           <div>
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-2xl font-bold text-gray-900">Top Matches for You</h2>
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Top Matches for You</h2>
               <Button variant="ghost" @click="$router.push('/matches')">
                 View All →
               </Button>
             </div>
             
             <div v-if="recommendations.loading" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card v-for="i in 4" :key="i" class="animate-pulse">
-                <div class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+              <Card v-for="i in 4" :key="i" class="animate-pulse bg-shaadi-surface border-shaadi">
+                <div class="h-48 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg mb-4"></div>
+                <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-3/4 mb-2"></div>
+                <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
               </Card>
             </div>
 
@@ -119,17 +119,17 @@
               />
             </div>
 
-            <Card v-else class="text-center py-12">
-              <p class="text-gray-500">No matches found yet. Complete your profile to get better recommendations!</p>
+            <Card v-else class="text-center py-12 bg-shaadi-surface border-shaadi">
+              <p class="text-gray-500 dark:text-gray-400">No matches found yet. Complete your profile to get better recommendations!</p>
             </Card>
           </div>
 
           <!-- Recent Activity -->
           <div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Recent Activity</h2>
-            <Card>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Recent Activity</h2>
+            <Card class="bg-shaadi-surface border-shaadi">
               <div class="space-y-4">
-                <div v-for="activity in recentActivity" :key="activity.id" class="flex items-start gap-4 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
+                <div v-for="activity in recentActivity" :key="activity.id" class="flex items-start gap-4 pb-4 border-b border-shaadi last:border-0 last:pb-0">
                   <div class="flex-shrink-0">
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,8 +138,8 @@
                     </div>
                   </div>
                   <div class="flex-1">
-                    <p class="text-sm text-gray-900">{{ activity.message }}</p>
-                    <p class="text-xs text-gray-500 mt-1">{{ formatTime(activity.time) }}</p>
+                    <p class="text-sm text-gray-900 dark:text-white">{{ activity.message }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ formatTime(activity.time) }}</p>
                   </div>
                 </div>
               </div>
@@ -150,8 +150,8 @@
         <!-- Sidebar -->
         <div class="space-y-6">
           <!-- Quick Actions -->
-          <Card>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
             <div class="space-y-2">
               <Button 
                 variant="subtle" 
@@ -201,17 +201,17 @@
           </Card>
 
           <!-- Subscription Info -->
-          <Card v-if="userProfile" class="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+          <Card v-if="userProfile" class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-shaadi-dk-raised dark:to-shaadi-dk-overlay border-purple-200 dark:border-shaadi rounded-xl">
             <div class="text-center">
               <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-3">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                 </svg>
               </div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-1">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                 {{ userProfile.subscription_plan || 'Free' }} Plan
               </h3>
-              <p class="text-sm text-gray-600 mb-4">Upgrade for unlimited access</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Upgrade for unlimited access</p>
               <Button variant="solid" size="md" class="w-full" @click="$router.push('/subscription')">
                 <template #prefix>
                   <FeatherIcon name="zap" class="w-4 h-4" />

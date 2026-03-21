@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-shaadi-dk-base dark:via-shaadi-dk-surface dark:to-shaadi-dk-base">
     <!-- Background Pattern -->
     <div class="absolute inset-0 overflow-hidden">
       <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full opacity-10 blur-3xl"></div>
@@ -15,20 +15,20 @@
               <FeatherIcon name="heart" class="w-8 h-8 text-white" />
             </div>
           </router-link>
-          <h2 class="text-3xl font-bold text-gray-900 mb-2">Create Your Profile</h2>
-          <p class="text-gray-600">Join thousands of members finding their perfect match</p>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Create Your Profile</h2>
+          <p class="text-gray-600 dark:text-gray-400">Join thousands of members finding their perfect match</p>
         </div>
 
         <!-- Registration Form -->
-        <Card class="p-8">
+        <Card class="p-8 bg-shaadi-surface border-shaadi">
           <form class="space-y-8" @submit.prevent="handleSubmit">
             <!-- Personal Information -->
             <div class="space-y-4">
               <div class="flex items-center space-x-2 mb-4">
-                <div class="w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center">
-                  <FeatherIcon name="user" class="w-4 h-4 text-pink-600" />
+                <div class="w-8 h-8 bg-pink-100 dark:bg-pink-900/30 rounded-lg flex items-center justify-center">
+                  <FeatherIcon name="user" class="w-4 h-4 text-pink-600 dark:text-pink-400" />
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900">Personal Information</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Personal Information</h3>
               </div>
               <div class="grid md:grid-cols-2 gap-4">
                 <FormControl
@@ -62,10 +62,10 @@
             <!-- Account Information -->
             <div class="space-y-4">
               <div class="flex items-center space-x-2 mb-4">
-                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <FeatherIcon name="mail" class="w-4 h-4 text-purple-600" />
+                <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                  <FeatherIcon name="mail" class="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900">Account Information</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Account Information</h3>
               </div>
               <FormControl
                 v-model="formData.email"
@@ -73,7 +73,7 @@
                 type="email"
                 placeholder="your.email@example.com"
               />
-              <div class="text-sm text-gray-600 bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div class="text-sm text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
                 <div class="flex items-start">
                   <FeatherIcon name="info" class="w-4 h-4 text-blue-600 mt-0.5 mr-2 flex-shrink-0" />
                   <p>After registration, you'll receive a password reset link via email to set your password.</p>
@@ -84,10 +84,10 @@
             <!-- Location -->
             <div class="space-y-4">
               <div class="flex items-center space-x-2 mb-4">
-                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <FeatherIcon name="map-pin" class="w-4 h-4 text-blue-600" />
+                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+                  <FeatherIcon name="map-pin" class="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900">Location</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
               </div>
               <div class="grid md:grid-cols-2 gap-4">
                 <FormControl
@@ -110,10 +110,10 @@
             <!-- Basic Details -->
             <div class="space-y-4">
               <div class="flex items-center space-x-2 mb-4">
-                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                  <FeatherIcon name="info" class="w-4 h-4 text-green-600" />
+                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                  <FeatherIcon name="info" class="w-4 h-4 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900">Basic Details</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Basic Details</h3>
               </div>
               <div class="grid md:grid-cols-2 gap-4">
                 <FormControl
@@ -163,7 +163,7 @@
                 />
               </div>
               <div class="ml-3 text-sm">
-                <label for="terms" class="font-medium text-gray-700">
+                <label for="terms" class="font-medium text-gray-700 dark:text-gray-300">
                   I agree to the 
                   <a href="#" class="text-pink-600 hover:text-pink-500">Terms and Conditions</a> and 
                   <a href="#" class="text-pink-600 hover:text-pink-500">Privacy Policy</a>
@@ -175,12 +175,12 @@
             <ErrorMessage v-if="error" :message="error" />
 
             <!-- Success Message -->
-            <div v-if="success" class="rounded-lg bg-green-50 border border-green-200 p-4">
+            <div v-if="success" class="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4">
               <div class="flex items-start">
                 <FeatherIcon name="check-circle" class="h-5 w-5 text-green-500 mt-0.5" />
                 <div class="ml-3">
-                  <h3 class="text-sm font-semibold text-green-800">Registration Successful!</h3>
-                  <p class="mt-1 text-sm text-green-700">{{ successMessage }}</p>
+                  <h3 class="text-sm font-semibold text-green-800 dark:text-green-300">Registration Successful!</h3>
+                  <p class="mt-1 text-sm text-green-700 dark:text-green-400">{{ successMessage }}</p>
                 </div>
               </div>
             </div>
@@ -203,8 +203,8 @@
           </form>
 
           <!-- Login Link -->
-          <div class="mt-8 pt-6 border-t border-gray-200 text-center">
-            <p class="text-sm text-gray-600">
+          <div class="mt-8 pt-6 border-t border-shaadi text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
               Already have an account?
               <router-link to="/signin" class="font-semibold text-pink-600 hover:text-pink-500 transition-colors">
                 Sign in

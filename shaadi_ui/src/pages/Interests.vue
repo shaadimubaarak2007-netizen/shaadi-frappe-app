@@ -1,26 +1,26 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-shaadi-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Interests</h1>
-        <p class="text-gray-600 mt-1">Manage interests sent and received</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Interests</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Manage interests sent and received</p>
       </div>
 
       <!-- Tabs -->
       <div class="mb-6">
-        <div class="flex items-center space-x-2 border-b border-gray-200">
+        <div class="flex items-center space-x-2 border-b border-gray-200 dark:border-gray-800">
           <button
             @click="activeTab = 'received'"
             :class="[
               'px-4 py-3 text-sm font-medium border-b-2 transition-colors',
               activeTab === 'received'
                 ? 'border-pink-600 text-pink-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600'
             ]"
           >
             Received
-            <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-pink-100 text-pink-600">
+            <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400">
               {{ receivedInterests.filter(i => i.status === 'Pending').length }}
             </span>
           </button>
@@ -30,11 +30,11 @@
               'px-4 py-3 text-sm font-medium border-b-2 transition-colors',
               activeTab === 'sent'
                 ? 'border-pink-600 text-pink-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600'
             ]"
           >
             Sent
-            <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-gray-100">
+            <span class="ml-2 px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-gray-800 dark:text-gray-300">
               {{ sentInterests.length }}
             </span>
           </button>
@@ -43,12 +43,12 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="space-y-4">
-        <Card v-for="i in 3" :key="i" class="animate-pulse p-6">
+        <Card v-for="i in 3" :key="i" class="animate-pulse p-6 bg-shaadi-surface border-shaadi rounded-xl">
           <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 bg-gray-200 rounded-full"></div>
+            <div class="w-16 h-16 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-full"></div>
             <div class="flex-1">
-              <div class="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-              <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+              <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/4 mb-2"></div>
+              <div class="h-3 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
             </div>
           </div>
         </Card>
@@ -57,7 +57,7 @@
       <!-- Received Interests -->
       <div v-else-if="activeTab === 'received'">
         <div v-if="receivedInterests.length > 0" class="space-y-4">
-          <Card v-for="interest in receivedInterests" :key="interest.name" class="p-6 hover:shadow-lg transition-shadow">
+          <Card v-for="interest in receivedInterests" :key="interest.name" class="p-6 hover:shadow-lg transition-shadow bg-shaadi-surface border-shaadi rounded-xl">
             <div class="flex items-start justify-between">
               <div class="flex items-start space-x-4 flex-1">
                 <!-- Profile Image -->
@@ -68,7 +68,7 @@
                 <!-- Profile Info -->
                 <div class="flex-1">
                   <div class="flex items-center space-x-2 mb-1">
-                    <h3 class="text-lg font-semibold text-gray-900">{{ interest.full_name }}</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ interest.full_name }}</h3>
                     <span 
                       :class="[
                         'px-2 py-0.5 text-xs rounded-full',
@@ -80,9 +80,9 @@
                       {{ interest.status }}
                     </span>
                   </div>
-                  <p class="text-sm text-gray-600 mb-2">{{ interest.age }} years • {{ interest.city }}</p>
-                  <p v-if="interest.message" class="text-sm text-gray-700 italic">"{{ interest.message }}"</p>
-                  <p class="text-xs text-gray-500 mt-2">{{ formatDate(interest.sent_on) }}</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">{{ interest.age }} years • {{ interest.city }}</p>
+                  <p v-if="interest.message" class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ interest.message }}"</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">{{ formatDate(interest.sent_on) }}</p>
                 </div>
               </div>
 
@@ -112,16 +112,16 @@
             </div>
           </Card>
         </div>
-        <Card v-else class="text-center py-12">
-          <FeatherIcon name="heart" class="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p class="text-gray-600">No interests received yet</p>
+        <Card v-else class="text-center py-12 bg-shaadi-surface border-shaadi rounded-xl">
+          <FeatherIcon name="heart" class="w-12 h-12 text-gray-300 dark:text-gray-700 mx-auto mb-4" />
+          <p class="text-gray-600 dark:text-gray-400">No interests received yet</p>
         </Card>
       </div>
 
       <!-- Sent Interests -->
       <div v-else-if="activeTab === 'sent'">
         <div v-if="sentInterests.length > 0" class="space-y-4">
-          <Card v-for="interest in sentInterests" :key="interest.name" class="p-6 hover:shadow-lg transition-shadow">
+          <Card v-for="interest in sentInterests" :key="interest.name" class="p-6 hover:shadow-lg transition-shadow bg-shaadi-surface border-shaadi rounded-xl">
             <div class="flex items-start justify-between">
               <div class="flex items-start space-x-4 flex-1">
                 <!-- Profile Image -->
@@ -132,7 +132,7 @@
                 <!-- Profile Info -->
                 <div class="flex-1">
                   <div class="flex items-center space-x-2 mb-1">
-                    <h3 class="text-lg font-semibold text-gray-900">{{ interest.full_name }}</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ interest.full_name }}</h3>
                     <span 
                       :class="[
                         'px-2 py-0.5 text-xs rounded-full',
@@ -144,9 +144,9 @@
                       {{ interest.status }}
                     </span>
                   </div>
-                  <p class="text-sm text-gray-600 mb-2">{{ interest.age }} years • {{ interest.city }}</p>
-                  <p v-if="interest.message" class="text-sm text-gray-700 italic">"{{ interest.message }}"</p>
-                  <p class="text-xs text-gray-500 mt-2">Sent {{ formatDate(interest.sent_on) }}</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ interest.age }} years • {{ interest.city }}</p>
+                  <p v-if="interest.message" class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ interest.message }}"</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Sent {{ formatDate(interest.sent_on) }}</p>
                 </div>
               </div>
 
@@ -159,9 +159,9 @@
             </div>
           </Card>
         </div>
-        <Card v-else class="text-center py-12">
-          <FeatherIcon name="send" class="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p class="text-gray-600 mb-4">You haven't sent any interests yet</p>
+        <Card v-else class="text-center py-12 bg-shaadi-surface border-shaadi rounded-xl">
+          <FeatherIcon name="send" class="w-12 h-12 text-gray-300 dark:text-gray-700 mx-auto mb-4" />
+          <p class="text-gray-600 dark:text-gray-400 mb-4">You haven't sent any interests yet</p>
           <Button variant="solid" @click="$router.push('/browse')">
             <template #prefix>
               <FeatherIcon name="search" class="w-4 h-4" />

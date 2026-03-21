@@ -7,16 +7,16 @@
     <InstallBanner />
     
     <!-- Footer with Developer Credits -->
-    <footer class="bg-white border-t border-gray-200 py-4 mt-8">
+    <footer class="bg-shaadi-surface border-t border-shaadi py-4 mt-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <p class="text-sm text-gray-600">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
             Made with love ❤️ by 
             <a 
               href="https://resume.amitkumar.live/" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="text-pink-600 hover:text-pink-700 font-medium transition-colors duration-200"
+              class="text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300 font-medium transition-colors duration-200"
             >
               Amit Kumar
             </a>
