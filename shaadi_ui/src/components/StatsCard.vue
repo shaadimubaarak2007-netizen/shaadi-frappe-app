@@ -1,17 +1,25 @@
 <template>
   <div
-    class="bg-white rounded-lg border border-gray-200 p-6 hover-lift cursor-pointer transition-all"
+    class="bg-white rounded-lg border border-default p-6 hover-lift cursor-pointer transition-all"
     :class="{ 'ring-2 ring-primary-200': active }"
     @click="handleClick"
   >
-    <div class="flex items-start justify-between">
+    <div class="flex items-start gap-4">
+      <!-- Icon -->
+      <div
+        class="p-2.5 rounded-full ring ring-inset flex-shrink-0"
+        :class="iconClasses"
+      >
+        <FeatherIcon :name="icon" class="w-5 h-5" />
+      </div>
+
       <!-- Content -->
-      <div class="flex-1">
-        <p class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+      <div class="flex-1 min-w-0">
+        <p class="text-xs font-normal text-muted uppercase tracking-wide mb-1.5">
           {{ title }}
         </p>
-        <div class="flex items-baseline gap-2 mb-1">
-          <span class="text-2xl font-semibold text-gray-900">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl font-semibold text-highlighted">
             {{ formattedValue }}
           </span>
           <Badge
@@ -23,17 +31,9 @@
             {{ variation > 0 ? '+' : '' }}{{ variation }}%
           </Badge>
         </div>
-        <p v-if="subtitle" class="text-sm text-gray-600">
+        <p v-if="subtitle" class="text-sm text-muted mt-1">
           {{ subtitle }}
         </p>
-      </div>
-
-      <!-- Icon -->
-      <div
-        class="p-2.5 rounded-full ring ring-inset"
-        :class="iconClasses"
-      >
-        <FeatherIcon :name="icon" class="w-5 h-5" />
       </div>
     </div>
 
@@ -99,13 +99,14 @@ const formattedValue = computed(() => {
 
 const iconClasses = computed(() => {
   const colorMap = {
-    pink: 'bg-pink-100 ring-pink-200 text-pink-600',
-    purple: 'bg-purple-100 ring-purple-200 text-purple-600',
-    blue: 'bg-blue-100 ring-blue-200 text-blue-600',
-    green: 'bg-green-100 ring-green-200 text-green-600',
-    orange: 'bg-orange-100 ring-orange-200 text-orange-600'
+    pink: 'bg-pink-50 text-pink-600',
+    purple: 'bg-purple-50 text-purple-600',
+    blue: 'bg-blue-50 text-blue-600',
+    green: 'bg-green-50 text-green-600',
+    orange: 'bg-orange-50 text-orange-600'
   }
-  return colorMap[props.color] || colorMap.pink
+  const baseClass = colorMap[props.color] || colorMap.pink
+  return `${baseClass} ring-primary-inset/25`
 })
 
 const handleClick = () => {

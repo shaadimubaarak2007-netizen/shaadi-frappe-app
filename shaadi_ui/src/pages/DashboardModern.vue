@@ -4,7 +4,7 @@
     <template #navbar>
       <div class="flex items-center justify-between h-16 px-6">
         <div class="flex items-center gap-4">
-          <h1 class="text-xl font-semibold text-gray-900">Dashboard</h1>
+          <h1 class="text-xl font-semibold text-highlighted">Dashboard</h1>
         </div>
         <div class="flex items-center gap-3">
           <Button
@@ -29,8 +29,8 @@
     <template #toolbar>
       <div class="flex items-center justify-between px-6 py-3">
         <div class="flex items-center gap-3">
-          <p class="text-sm text-gray-600">
-            Welcome back, <span class="font-semibold text-gray-900">{{ userName }}</span>!
+          <p class="text-sm text-muted">
+            Welcome back, <span class="font-semibold text-highlighted">{{ userName }}</span>!
           </p>
         </div>
         <div class="flex items-center gap-2">
@@ -114,9 +114,9 @@
         <!-- Left Column - Top Matches -->
         <div class="lg:col-span-2 space-y-6">
           <!-- Top Matches -->
-          <div class="bg-white rounded-lg border border-gray-200 p-6">
+          <div class="bg-white rounded-lg border border-default p-6">
             <div class="flex items-center justify-between mb-4">
-              <h2 class="text-xl font-semibold text-gray-900">Top Matches for You</h2>
+              <h2 class="text-xl font-semibold text-highlighted">Top Matches for You</h2>
               <Button
                 label="View All"
                 variant="ghost"
@@ -159,8 +159,8 @@
           </div>
 
           <!-- Recent Activity -->
-          <div class="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+          <div class="bg-white rounded-lg border border-default p-6">
+            <h2 class="text-xl font-semibold text-highlighted mb-4">Recent Activity</h2>
             <div class="space-y-4">
               <div
                 v-for="activity in recentActivity"
@@ -173,8 +173,8 @@
                   </div>
                 </div>
                 <div class="flex-1">
-                  <p class="text-sm text-gray-900">{{ activity.message }}</p>
-                  <p class="text-xs text-gray-500 mt-1">{{ formatTime(activity.time) }}</p>
+                  <p class="text-sm text-highlighted">{{ activity.message }}</p>
+                  <p class="text-xs text-muted mt-1">{{ formatTime(activity.time) }}</p>
                 </div>
               </div>
             </div>
@@ -184,8 +184,8 @@
         <!-- Right Column - Sidebar -->
         <div class="space-y-6">
           <!-- Quick Actions -->
-          <div class="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <div class="bg-white rounded-lg border border-default p-6">
+            <h3 class="text-lg font-semibold text-highlighted mb-4">Quick Actions</h3>
             <div class="space-y-2">
               <Button
                 icon="search"
@@ -228,10 +228,10 @@
               <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-3">
                 <FeatherIcon name="zap" class="w-6 h-6 text-white" />
               </div>
-              <h3 class="text-lg font-semibold text-gray-900 mb-1">
+              <h3 class="text-lg font-semibold text-highlighted mb-1">
                 {{ userProfile?.subscription_plan || 'Free' }} Plan
               </h3>
-              <p class="text-sm text-gray-600 mb-4">Upgrade for unlimited access</p>
+              <p class="text-sm text-muted mb-4">Upgrade for unlimited access</p>
               <Button
                 icon="zap"
                 label="Upgrade Now"
@@ -248,8 +248,8 @@
             <div class="flex items-start gap-3">
               <FeatherIcon name="lightbulb" class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 class="text-sm font-semibold text-gray-900 mb-1">Profile Tip</h3>
-                <p class="text-xs text-gray-600">
+                <h3 class="text-sm font-semibold text-highlighted mb-1">Profile Tip</h3>
+                <p class="text-xs text-muted">
                   Profiles with photos get 10x more responses. Upload a clear photo to increase your chances!
                 </p>
               </div>

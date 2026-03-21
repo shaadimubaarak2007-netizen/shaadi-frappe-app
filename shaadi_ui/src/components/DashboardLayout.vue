@@ -1,14 +1,14 @@
 <template>
-  <div class="flex h-screen bg-gray-50 overflow-hidden">
+  <div class="flex h-screen bg-gray-50/50 overflow-hidden">
     <!-- Sidebar -->
     <aside
       :class="[
-        'flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ease-in-out',
+        'flex flex-col bg-elevated border-r border-default transition-all duration-300 ease-in-out',
         isCollapsed ? 'w-16' : 'w-64'
       ]"
     >
       <!-- Header: Logo/Brand -->
-      <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+      <div class="flex items-center justify-between h-16 px-4 border-b border-default">
         <router-link to="/dashboard" class="flex items-center space-x-2">
           <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
             <FeatherIcon name="heart" class="w-6 h-6 text-white" />
@@ -31,27 +31,6 @@
         />
       </div>
 
-      <!-- Search Button -->
-      <div class="p-2">
-        <Button
-          :icon="isCollapsed ? 'search' : undefined"
-          :label="isCollapsed ? undefined : 'Search...'"
-          variant="ghost"
-          block
-          class="justify-start text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-          @click="$emit('open-search')"
-        >
-          <template v-if="!isCollapsed" #prefix>
-            <FeatherIcon name="search" class="w-4 h-4" />
-          </template>
-          <template v-if="!isCollapsed" #suffix>
-            <kbd class="px-1.5 py-0.5 text-xs bg-gray-100 border border-gray-200 rounded">
-              ⌘K
-            </kbd>
-          </template>
-        </Button>
-      </div>
-
       <!-- Navigation Links -->
       <nav class="flex-1 px-2 py-2 space-y-1 overflow-y-auto">
         <router-link
@@ -61,12 +40,8 @@
           v-slot="{ isActive }"
           custom
         >
-          <Button
-            :icon="item.icon"
-            :label="isCollapsed ? undefined : item.label"
-            variant="ghost"
-            block
-            class="justify-start"
+          <div
+            class="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors"
             :class="[
               isActive
                 ? 'bg-pink-50 text-pink-600 hover:bg-pink-100'
@@ -74,17 +49,19 @@
             ]"
             @click="$router.push(item.path)"
           >
-            <template v-if="!isCollapsed && item.badge" #suffix>
-              <Badge variant="subtle" size="sm" class="bg-pink-100 text-pink-600">
-                {{ item.badge }}
-              </Badge>
-            </template>
-          </Button>
+            <FeatherIcon :name="item.icon" class="w-5 h-5 flex-shrink-0" />
+            <span v-if="!isCollapsed" class="flex-1 text-sm font-medium">
+              {{ item.label }}
+            </span>
+            <Badge v-if="!isCollapsed && item.badge" variant="subtle" size="sm" class="bg-pink-100 text-pink-600">
+              {{ item.badge }}
+            </Badge>
+          </div>
         </router-link>
       </nav>
 
       <!-- Footer: User Menu -->
-      <div class="p-2 border-t border-gray-200">
+      <div class="p-2 border-t border-default">
         <Dropdown :options="userMenuOptions" :placement="isCollapsed ? 'right' : 'top'">
           <Button
             :avatar="userPhoto"
@@ -104,12 +81,12 @@
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col overflow-hidden">
       <!-- Top Navbar (if slot provided) -->
-      <header v-if="$slots.navbar" class="bg-white border-b border-gray-200">
+      <header v-if="$slots.navbar" class="bg-white border-b border-default">
         <slot name="navbar" />
       </header>
 
       <!-- Toolbar (if slot provided) -->
-      <div v-if="$slots.toolbar" class="bg-white border-b border-gray-200">
+      <div v-if="$slots.toolbar" class="bg-white border-b border-default">
         <slot name="toolbar" />
       </div>
 

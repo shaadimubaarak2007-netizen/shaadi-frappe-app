@@ -66,9 +66,12 @@
   /* Semantic Colors */
   --color-background: oklch(100% 0 0);
   --color-foreground: oklch(15% 0 0);
-  --color-muted: oklch(55% 0 0);
+  --color-muted: oklch(60% 0 0);
+  --color-highlighted: oklch(20% 0 0);
   --color-border: oklch(92% 0 0);
-  --color-elevated: oklch(98% 0 0);
+  --color-default: oklch(90% 0 0);        /* Subtle borders */
+  --color-elevated: oklch(99% 0 0);       /* Elevated surfaces */
+  --color-subtle: oklch(97% 0 0);         /* Subtle backgrounds */
   
   /* Spacing Scale */
   --spacing-xs: 0.25rem;    /* 4px */
@@ -105,8 +108,11 @@
   --color-background: oklch(15% 0 0);
   --color-foreground: oklch(98% 0 0);
   --color-muted: oklch(70% 0 0);
+  --color-highlighted: oklch(95% 0 0);
   --color-border: oklch(25% 0 0);
+  --color-default: oklch(30% 0 0);
   --color-elevated: oklch(20% 0 0);
+  --color-subtle: oklch(18% 0 0);
   
   /* Adjust primary colors for dark mode */
   --color-primary-500: oklch(68% 0.20 350);
@@ -195,6 +201,66 @@ h1, h2, h3, h4, h5, h6 {
 
 .focus-ring:focus-visible {
   box-shadow: 0 0 0 3px var(--color-primary-200);
+}
+
+/* Text Color Utilities */
+.text-muted {
+  color: var(--color-muted);
+}
+
+.text-highlighted {
+  color: var(--color-highlighted);
+}
+
+/* Background Utilities */
+.bg-elevated {
+  background-color: var(--color-elevated);
+}
+
+.bg-subtle {
+  background-color: var(--color-subtle);
+}
+
+.bg-elevated\/25 {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dark .bg-elevated\/25 {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Border Utilities */
+.border-default {
+  border-color: var(--color-default);
+}
+
+/* Ring Utilities */
+.ring {
+  box-shadow: 0 0 0 1px var(--color-border);
+}
+
+.ring-inset {
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.ring-primary {
+  box-shadow: 0 0 0 1px var(--color-primary-500);
+}
+
+.ring-primary\/25 {
+  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.25);
+}
+
+.ring-primary-inset {
+  box-shadow: inset 0 0 0 1px var(--color-primary-500);
+}
+
+.ring-primary-inset\/25 {
+  box-shadow: inset 0 0 0 1px rgba(236, 72, 153, 0.25);
+}
+
+.ring.ring-inset.ring-primary\/25 {
+  box-shadow: inset 0 0 0 1px rgba(236, 72, 153, 0.25);
 }
 
 /* Scrollbar Styling */
