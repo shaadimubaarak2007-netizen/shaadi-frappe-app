@@ -1,59 +1,19 @@
 <template>
-  <div class="filter-panel bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+  <div class="filter-panel bg-shaadi-surface rounded-xl shadow-sm border border-shaadi p-4">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-semibold text-gray-900">Filters</h3>
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Filters</h3>
       <Button variant="ghost" size="sm" @click="clearFilters">
         Clear All
       </Button>
     </div>
 
     <div class="space-y-6">
-      <!-- Age Range -->
-      <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Age</label>
-        <div class="flex items-center gap-3">
-          <Input 
-            type="number" 
-            v-model="localFilters.min_age" 
-            placeholder="Min"
-            class="w-20"
-          />
-          <span class="text-gray-500">to</span>
-          <Input 
-            type="number" 
-            v-model="localFilters.max_age" 
-            placeholder="Max"
-            class="w-20"
-          />
-        </div>
-      </div>
-
-      <!-- Height Range -->
-      <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
-        <div class="flex items-center gap-3">
-          <Input 
-            type="number" 
-            v-model="localFilters.min_height" 
-            placeholder="Min"
-            class="w-20"
-          />
-          <span class="text-gray-500">to</span>
-          <Input 
-            type="number" 
-            v-model="localFilters.max_height" 
-            placeholder="Max"
-            class="w-20"
-          />
-        </div>
-      </div>
-
       <!-- Religion -->
       <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Religion</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Religion</label>
         <select 
           v-model="localFilters.religion" 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 border border-shaadi-mid rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-shaadi-surface text-shaadi-primary"
         >
           <option value="">Any</option>
           <option value="Hindu">Hindu</option>
@@ -68,10 +28,10 @@
 
       <!-- Marital Status -->
       <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Marital Status</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Marital Status</label>
         <select 
           v-model="localFilters.marital_status" 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 border border-shaadi-mid rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-shaadi-surface text-shaadi-primary"
         >
           <option value="">Any</option>
           <option value="Never Married">Never Married</option>
@@ -83,10 +43,10 @@
 
       <!-- Education -->
       <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Education</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Education</label>
         <select 
           v-model="localFilters.education" 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 border border-shaadi-mid rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-shaadi-surface text-shaadi-primary"
         >
           <option value="">Any</option>
           <option value="Below 10th">Below 10th</option>
@@ -99,21 +59,12 @@
         </select>
       </div>
 
-      <!-- City -->
-      <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
-        <Input 
-          v-model="localFilters.city" 
-          placeholder="Enter city"
-        />
-      </div>
-
       <!-- State -->
       <div class="filter-section">
-        <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">State</label>
         <select 
           v-model="localFilters.state" 
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 border border-shaadi-mid rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-shaadi-surface text-shaadi-primary"
         >
           <option value="">Any</option>
           <option value="Delhi">Delhi</option>
@@ -155,27 +106,17 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'apply'])
 
 const localFilters = ref({
-  min_age: props.modelValue.min_age || '',
-  max_age: props.modelValue.max_age || '',
-  min_height: props.modelValue.min_height || '',
-  max_height: props.modelValue.max_height || '',
   religion: props.modelValue.religion || '',
   marital_status: props.modelValue.marital_status || '',
   education: props.modelValue.education || '',
-  city: props.modelValue.city || '',
   state: props.modelValue.state || ''
 })
 
 function clearFilters() {
   localFilters.value = {
-    min_age: '',
-    max_age: '',
-    min_height: '',
-    max_height: '',
     religion: '',
     marital_status: '',
     education: '',
-    city: '',
     state: ''
   }
   applyFilters()

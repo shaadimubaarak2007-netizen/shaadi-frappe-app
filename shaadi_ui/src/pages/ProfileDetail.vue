@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-shaadi-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Back Button -->
       <Button variant="ghost" class="mb-4" @click="$router.back()">
@@ -10,16 +10,16 @@
       </Button>
 
       <div v-if="loading" class="animate-pulse">
-        <div class="h-64 bg-gray-200 rounded-lg mb-6"></div>
-        <div class="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
-        <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+        <div class="h-64 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg mb-6"></div>
+        <div class="h-8 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/3 mb-4"></div>
+        <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
       </div>
 
       <div v-else-if="profile" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-6">
           <!-- Photo Gallery -->
-          <Card>
+          <Card class="bg-shaadi-surface border-shaadi">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div v-if="profile.profile_photo" class="col-span-2 md:col-span-3">
                 <img :src="profile.profile_photo" :alt="profile.full_name" class="w-full h-96 object-cover rounded-lg" />
@@ -27,15 +27,15 @@
               <div v-else class="col-span-2 md:col-span-3 h-96 bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg flex items-center justify-center">
                 <span class="text-9xl font-bold text-purple-600">{{ getInitials(profile.full_name) }}</span>
               </div>
-              <div v-for="(photo, index) in profile.profile_photos" :key="index" class="h-32 bg-gray-200 rounded-lg overflow-hidden">
+              <div v-for="(photo, index) in profile.profile_photos" :key="index" class="h-32 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-lg overflow-hidden">
                 <img v-if="photo.photo" :src="photo.photo" :alt="`Photo ${index + 1}`" class="w-full h-full object-cover" />
               </div>
             </div>
           </Card>
 
           <!-- About Section -->
-          <Card>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">About {{ profile.full_name }}</h2>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">About {{ profile.full_name }}</h2>
             <div class="flex items-center gap-2 mb-4">
               <MatchPercentage v-if="profile.match_score" :score="profile.match_score" size="md" />
               <Badge v-if="profile.verified" variant="success">
@@ -50,79 +50,79 @@
           </Card>
 
           <!-- Basic Details -->
-          <Card>
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Details</h3>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Basic Details</h3>
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <p class="text-sm text-gray-500">Age</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Age</p>
                 <p class="font-medium">{{ profile.age }} years</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Height</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Height</p>
                 <p class="font-medium">{{ formatHeight(profile.height_cm) }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Religion</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Religion</p>
                 <p class="font-medium">{{ profile.religion || 'Not specified' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Caste</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Caste</p>
                 <p class="font-medium">{{ profile.caste || 'Not specified' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Mother Tongue</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Mother Tongue</p>
                 <p class="font-medium">{{ profile.mother_tongue || 'Not specified' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Marital Status</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Marital Status</p>
                 <p class="font-medium">{{ profile.marital_status || 'Not specified' }}</p>
               </div>
             </div>
           </Card>
 
           <!-- Education & Career -->
-          <Card>
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Education & Career</h3>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Education & Career</h3>
             <div class="space-y-4">
               <div>
-                <p class="text-sm text-gray-500">Education</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Education</p>
                 <p class="font-medium">{{ profile.education || 'Not specified' }}</p>
-                <p v-if="profile.education_detail" class="text-sm text-gray-600">{{ profile.education_detail }}</p>
+                <p v-if="profile.education_detail" class="text-sm text-gray-600 dark:text-gray-400">{{ profile.education_detail }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Occupation</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Occupation</p>
                 <p class="font-medium">{{ profile.occupation || 'Not specified' }}</p>
-                <p v-if="profile.occupation_detail" class="text-sm text-gray-600">{{ profile.occupation_detail }}</p>
+                <p v-if="profile.occupation_detail" class="text-sm text-gray-600 dark:text-gray-400">{{ profile.occupation_detail }}</p>
               </div>
               <div v-if="profile.annual_income_band">
-                <p class="text-sm text-gray-500">Annual Income</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Annual Income</p>
                 <p class="font-medium">{{ profile.annual_income_band }}</p>
               </div>
             </div>
           </Card>
 
           <!-- Lifestyle -->
-          <Card>
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Lifestyle</h3>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Lifestyle</h3>
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <p class="text-sm text-gray-500">Diet</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Diet</p>
                 <p class="font-medium">{{ profile.diet || 'Not specified' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Smoking</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Smoking</p>
                 <p class="font-medium">{{ profile.smoking || 'Not specified' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500">Drinking</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Drinking</p>
                 <p class="font-medium">{{ profile.drinking || 'Not specified' }}</p>
               </div>
             </div>
           </Card>
 
           <!-- Location -->
-          <Card>
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">Location</h3>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Location</h3>
             <div class="flex items-start gap-2">
               <svg class="w-5 h-5 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -130,7 +130,7 @@
               </svg>
               <div>
                 <p class="font-medium">{{ profile.city }}, {{ profile.state }}</p>
-                <p class="text-sm text-gray-600">{{ profile.country_of_residence }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{ profile.country_of_residence }}</p>
               </div>
             </div>
           </Card>
@@ -139,7 +139,7 @@
         <!-- Sidebar -->
         <div class="space-y-6">
           <!-- Action Buttons -->
-          <Card>
+          <Card class="bg-shaadi-surface border-shaadi">
             <div class="space-y-2">
               <!-- Dynamic Interest Button -->
               <Button 
@@ -234,19 +234,19 @@
           </Card>
 
           <!-- Profile Stats -->
-          <Card>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Profile Stats</h3>
+          <Card class="bg-shaadi-surface border-shaadi">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Profile Stats</h3>
             <div class="space-y-3">
               <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-600">Profile Views</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">Profile Views</span>
                 <span class="font-semibold">{{ profile.view_count || 0 }}</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-600">Profile Completeness</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completeness</span>
                 <span class="font-semibold">{{ profile.profile_completeness || 0 }}%</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-600">Last Active</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">Last Active</span>
                 <span class="text-sm">{{ formatDate(profile.last_active) }}</span>
               </div>
             </div>
@@ -254,29 +254,29 @@
 
           <!-- Contact Info (Premium) -->
           <Card v-if="canViewContact" class="bg-green-50 border-green-200">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
             <div class="space-y-3">
               <div v-if="profile.phone">
-                <p class="text-sm text-gray-600">Phone</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Phone</p>
                 <p class="font-medium">{{ profile.phone }}</p>
               </div>
               <div v-if="profile.email">
-                <p class="text-sm text-gray-600">Email</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Email</p>
                 <p class="font-medium">{{ profile.email }}</p>
               </div>
               <div v-if="profile.whatsapp_number">
-                <p class="text-sm text-gray-600">WhatsApp</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">WhatsApp</p>
                 <p class="font-medium">{{ profile.whatsapp_number }}</p>
               </div>
             </div>
           </Card>
-          <Card v-else class="bg-yellow-50 border-yellow-200">
+          <Card v-else class="bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 rounded-xl">
             <div class="text-center">
-              <svg class="w-12 h-12 mx-auto text-yellow-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-12 h-12 mx-auto text-yellow-600 dark:text-yellow-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
               </svg>
-              <h3 class="text-lg font-semibold text-gray-900 mb-2">Contact Hidden</h3>
-              <p class="text-sm text-gray-600 mb-4">Upgrade to premium to view contact details</p>
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Contact Hidden</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Upgrade to premium to view contact details</p>
               <Button variant="solid" size="sm" @click="$router.push('/subscription')">
                 <template #prefix>
                   <FeatherIcon name="zap" class="w-4 h-4" />
@@ -289,7 +289,7 @@
       </div>
 
       <div v-else class="text-center py-12">
-        <p class="text-gray-500">Profile not found</p>
+        <p class="text-gray-500 dark:text-gray-400">Profile not found</p>
       </div>
     </div>
 

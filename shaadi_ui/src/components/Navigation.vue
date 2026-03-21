@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <nav class="bg-shaadi-surface border-b border-shaadi sticky top-0 z-50 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <!-- Logo and Brand -->
@@ -21,10 +21,10 @@
             :key="item.path"
             :to="item.path"
             class="px-3 py-2 rounded-md text-sm font-medium transition-colors"
-            :class="isActive(item.path) ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'"
+:class="isActive(item.path) ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'"
           >
             <div class="flex items-center space-x-2">
-              <FeatherIcon :name="item.icon" class="w-4 h-4" />
+              <FeatherIcon :name="item.icon" class="w-4 h-4 text-current" />
               <span>{{ item.label }}</span>
             </div>
           </router-link>
@@ -45,8 +45,8 @@
             <div class="relative z-[60]">
               <Dropdown :options="notificationOptions">
                 <template #default="{ open }">
-                  <Button variant="ghost" size="md" class="relative">
-                    <FeatherIcon name="bell" class="w-5 h-5" />
+                  <Button variant="ghost" size="md" class="relative text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+                    <FeatherIcon name="bell" class="w-5 h-5 text-current" />
                     <span v-if="unreadCount > 0" class="absolute top-0 right-0 px-1.5 py-0.5 text-xs bg-red-500 text-white rounded-full min-w-[1.25rem] flex items-center justify-center">
                       {{ unreadCount > 9 ? '9+' : unreadCount }}
                     </span>
@@ -55,21 +55,26 @@
               </Dropdown>
             </div>
 
+            <!-- Dark Mode Toggle -->
+            <Button variant="ghost" size="md" @click="toggleDarkMode" class="hidden md:flex text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <FeatherIcon :name="isDark ? 'sun' : 'moon'" class="w-5 h-5 text-current" />
+            </Button>
+
             <!-- User Menu -->
             <div class="relative z-[60]">
               <Dropdown :options="userMenuOptions">
                 <template #default="{ open }">
-                  <button class="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-50 transition-colors">
+                  <button class="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <Avatar 
                       :label="userInitials" 
                       :image="userPhoto"
                       size="sm"
                       class="bg-gradient-to-br from-pink-500 to-purple-600"
                     />
-                    <span class="text-sm font-medium text-gray-700 hidden md:block">
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200 hidden md:block">
                       {{ userName }}
                     </span>
-                    <FeatherIcon name="chevron-down" class="w-4 h-4 text-gray-400" />
+                    <FeatherIcon name="chevron-down" class="w-4 h-4 text-gray-400 dark:text-gray-500" />
                   </button>
                 </template>
               </Dropdown>
@@ -81,17 +86,17 @@
             v-if="isLoggedIn"
             variant="ghost" 
             size="md" 
-            class="md:hidden"
+            class="md:hidden text-gray-700 dark:text-gray-200"
             @click="mobileMenuOpen = !mobileMenuOpen"
           >
-            <FeatherIcon :name="mobileMenuOpen ? 'x' : 'menu'" class="w-5 h-5" />
+            <FeatherIcon :name="mobileMenuOpen ? 'x' : 'menu'" class="w-5 h-5 text-current" />
           </Button>
         </div>
       </div>
     </div>
 
     <!-- Mobile Menu -->
-    <div v-if="isLoggedIn && mobileMenuOpen" class="md:hidden border-t border-gray-200">
+    <div v-if="isLoggedIn && mobileMenuOpen" class="md:hidden border-t border-shaadi bg-shaadi-surface">
       <div class="px-2 pt-2 pb-3 space-y-1">
         <router-link
           v-for="item in menuItems"
@@ -99,9 +104,9 @@
           :to="item.path"
           @click="mobileMenuOpen = false"
           class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium transition-colors"
-          :class="isActive(item.path) ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'"
+          :class="isActive(item.path) ? 'bg-shaadi-raised text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300 hover:bg-shaadi-raised hover:text-gray-900 dark:hover:text-white'"
         >
-          <FeatherIcon :name="item.icon" class="w-5 h-5" />
+          <FeatherIcon :name="item.icon" class="w-5 h-5 text-current" />
           <span>{{ item.label }}</span>
         </router-link>
       </div>
@@ -110,18 +115,20 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { Button, Avatar, Dropdown, FeatherIcon } from 'frappe-ui'
+import { Button, Avatar, Dropdown, FeatherIcon, call } from 'frappe-ui'
 import { session } from '@/data/session'
 import { useNotifications } from '@/composables/useNotifications'
 import { usePWA } from '@/composables/usePWA'
+import { useDarkMode } from '@/composables/useDarkMode'
 
 const router = useRouter()
 const route = useRoute()
 const mobileMenuOpen = ref(false)
 const notifications = ref([])
 const pwa = usePWA()
+const { isDark, toggleDarkMode } = useDarkMode()
 
 // Use shared notification state for real-time updates
 const { unreadCount, loadUnreadCount, setupRealtimeUpdates, cleanupRealtimeUpdates } = useNotifications()
@@ -314,9 +321,6 @@ async function handleNotificationClick(notification) {
 }
 
 // Load notifications when component mounts and user is logged in
-import { onMounted, onUnmounted, watch } from 'vue'
-import { call } from 'frappe-ui'
-
 onMounted(async () => {
   if (isLoggedIn.value) {
     await loadUserProfile()

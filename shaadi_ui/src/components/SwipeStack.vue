@@ -4,10 +4,10 @@
     <div v-if="loading" class="loading-state">
       <div class="loading-card">
         <div class="animate-pulse">
-          <div class="h-64 bg-gray-200 rounded-t-2xl mb-4"></div>
+          <div class="h-64 bg-gray-200 dark:bg-shaadi-dk-overlay rounded-t-2xl mb-4"></div>
           <div class="px-4 pb-4">
-            <div class="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-            <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+            <div class="h-6 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-200 dark:bg-shaadi-dk-overlay rounded w-1/2"></div>
           </div>
         </div>
       </div>

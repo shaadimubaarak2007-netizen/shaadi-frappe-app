@@ -1,18 +1,18 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-shaadi-dk-base dark:via-shaadi-dk-surface dark:to-shaadi-dk-base">
     <!-- Hero Section -->
     <section class="relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <!-- Left Content -->
           <div class="text-center lg:text-left">
-            <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               Find Your
               <span class="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                 Perfect Match
               </span>
             </h1>
-            <p class="text-xl text-gray-600 mb-8">
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
               India's most trusted matrimonial platform. Join millions of happy couples who found their life partner with us.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -34,22 +34,22 @@
             <div class="grid grid-cols-3 gap-6 mt-12">
               <div class="text-center">
                 <div class="text-3xl font-bold text-pink-600">10M+</div>
-                <div class="text-sm text-gray-600">Happy Couples</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Happy Couples</div>
               </div>
               <div class="text-center">
                 <div class="text-3xl font-bold text-purple-600">50M+</div>
-                <div class="text-sm text-gray-600">Profiles</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Profiles</div>
               </div>
               <div class="text-center">
                 <div class="text-3xl font-bold text-blue-600">100%</div>
-                <div class="text-sm text-gray-600">Verified</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Verified</div>
               </div>
             </div>
           </div>
 
           <!-- Right Image/Illustration -->
           <div class="relative">
-            <div class="relative z-10 bg-white rounded-2xl shadow-2xl p-8">
+            <div class="relative z-10 bg-shaadi-surface rounded-2xl shadow-2xl p-8">
               <div class="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center">
                 <FeatherIcon name="heart" class="w-32 h-32 text-pink-500" />
               </div>
@@ -63,13 +63,13 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-shaadi-surface">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Why Choose Shaadi?
           </h2>
-          <p class="text-xl text-gray-600">
+          <p class="text-xl text-gray-600 dark:text-gray-400">
             Your journey to finding the perfect life partner starts here
           </p>
         </div>
@@ -79,21 +79,21 @@
             <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full mb-4">
               <FeatherIcon :name="feature.icon" class="w-8 h-8 text-white" />
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ feature.title }}</h3>
-            <p class="text-gray-600">{{ feature.description }}</p>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ feature.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-400">{{ feature.description }}</p>
           </Card>
         </div>
       </div>
     </section>
 
     <!-- How It Works -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-20 bg-shaadi-base">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             How It Works
           </h2>
-          <p class="text-xl text-gray-600">
+          <p class="text-xl text-gray-600 dark:text-gray-400">
             Simple steps to find your perfect match
           </p>
         </div>
@@ -104,8 +104,8 @@
               <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full text-white text-2xl font-bold mb-4">
                 {{ index + 1 }}
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ step.title }}</h3>
-              <p class="text-gray-600">{{ step.description }}</p>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ step.title }}</h3>
+              <p class="text-gray-600 dark:text-gray-400">{{ step.description }}</p>
             </div>
             <div v-if="index < steps.length - 1" class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gradient-to-r from-pink-300 to-purple-300"></div>
           </div>
@@ -140,7 +140,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
+    <footer class="bg-shaadi-dk-surface text-gray-300 py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-4 gap-8 mb-8">
           <div>

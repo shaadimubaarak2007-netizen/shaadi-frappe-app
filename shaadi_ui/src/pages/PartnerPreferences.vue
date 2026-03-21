@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-8">
+  <div class="min-h-screen bg-shaadi-base py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Partner Preferences</h1>
-        <p class="text-gray-600 mt-1">Tell us what you're looking for in your ideal partner</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Partner Preferences</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">Tell us what you're looking for in your ideal partner</p>
       </div>
 
       <!-- Loading State -->
@@ -15,9 +15,9 @@
       <!-- Preference Form -->
       <form v-else @submit.prevent="savePreferences" class="space-y-6">
         <!-- Age & Height Section -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">Age & Height</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Age & Height</h2>
           </template>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -60,9 +60,9 @@
         </Card>
 
         <!-- Marital Status & Religion -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">Marital Status & Religion</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Marital Status & Religion</h2>
           </template>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -101,9 +101,9 @@
         </Card>
 
         <!-- Language & Horoscope -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">Language & Horoscope</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Language & Horoscope</h2>
           </template>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -136,9 +136,9 @@
         </Card>
 
         <!-- Education & Income -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">Education & Income</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Education & Income</h2>
           </template>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -169,9 +169,9 @@
         </Card>
 
         <!-- Lifestyle -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">Lifestyle</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Lifestyle</h2>
           </template>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
@@ -202,9 +202,9 @@
         </Card>
 
         <!-- Location -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">Location</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Location</h2>
           </template>
           <div class="space-y-4">
             <div>
@@ -227,9 +227,9 @@
         </Card>
 
         <!-- About Partner -->
-        <Card>
+        <Card class="bg-shaadi-surface border-shaadi">
           <template #header>
-            <h2 class="text-xl font-semibold text-gray-900">About Your Ideal Partner</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">About Your Ideal Partner</h2>
           </template>
           <div>
             <Textarea

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  <div class="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 dark:from-shaadi-dk-base dark:via-shaadi-dk-surface dark:to-shaadi-dk-base">
     <!-- Background Pattern -->
     <div class="absolute inset-0 overflow-hidden">
       <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full opacity-10 blur-3xl"></div>
@@ -22,7 +22,7 @@
         </div>
 
         <!-- Login Form -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+        <div class="bg-shaadi-surface rounded-2xl shadow-xl p-6 border border-shaadi">
           <form class="space-y-4" @submit.prevent="submit">
             <div>
               <Input
@@ -48,8 +48,8 @@
 
             <div class="flex items-center justify-between">
               <div class="flex items-center">
-                <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded">
-                <label for="remember-me" class="ml-2 block text-sm text-gray-700">
+                <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 dark:border-gray-600 rounded">
+                <label for="remember-me" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                   Remember me
                 </label>
               </div>
@@ -93,7 +93,7 @@
 
           <!-- Sign Up Link -->
           <div class="mt-4 text-center">
-            <p class="text-sm text-gray-600">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?
               <router-link to="/signup" class="font-medium text-pink-600 hover:text-pink-500 transition-colors">
                 Sign up for free
